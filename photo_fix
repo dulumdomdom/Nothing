@@ -1,0 +1,323 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Программа для работы с веб-камерой на Altlinux p11
+Функции:
+- Отображение видео в реальном времени
+- Создание снимков с автоматической нумерацией
+- Просмотр сохраненных фотографий
+"""
+
+import cv2
+import os
+import tkinter as tk
+from tkinter import ttk, messagebox, filedialog
+from PIL import Image, ImageTk
+from datetime import datetime
+import glob
+from pathlib import Path
+
+class CameraApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Камера - Фотостудия")
+        self.root.geometry("1200x700")
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        
+        # Переменные
+        self.cap = None
+        self.is_recording = False
+        self.current_folder = None
+        self.current_photos = []
+        
+        # Создание интерфейса
+        self.create_widgets()
+        
+        # Запуск камеры
+        self.start_camera()
+        
+    def create_widgets(self):
+        """Создание элементов интерфейса"""
+        # Основной фрейм
+        main_frame = ttk.Frame(self.root)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Левая панель - видео
+        left_frame = ttk.LabelFrame(main_frame, text="Видео с камеры", padding=10)
+        left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+        self.video_label = ttk.Label(left_frame)
+        self.video_label.pack()
+        
+        # Правая панель - управление
+        right_frame = ttk.LabelFrame(main_frame, text="Управление", padding=10)
+        right_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(10, 0))
+        
+        # Кнопка для снимка
+        self.capture_btn = ttk.Button(right_frame, text="📸 Сделать снимок", 
+                                      command=self.capture_photo, width=25)
+        self.capture_btn.pack(pady=(0, 10))
+        
+        # Название папки
+        ttk.Label(right_frame, text="Название папки:").pack(anchor=tk.W)
+        self.folder_name_entry = ttk.Entry(right_frame, width=30)
+        self.folder_name_entry.pack(fill=tk.X, pady=(0, 10))
+        
+        # Кнопка просмотра фото
+        self.view_btn = ttk.Button(right_frame, text="📁 Просмотр фотографий", 
+                                   command=self.open_gallery, width=25)
+        self.view_btn.pack(pady=5)
+        
+        # Кнопка выбора папки
+        self.browse_btn = ttk.Button(right_frame, text="📂 Выбрать папку", 
+                                     command=self.browse_folder, width=25)
+        self.browse_btn.pack(pady=5)
+        
+        # Информация
+        self.info_label = ttk.Label(right_frame, text="Готов к работе", 
+                                   wraplength=250, justify=tk.LEFT)
+        self.info_label.pack(pady=20)
+        
+        # Статус
+        self.status_label = ttk.Label(right_frame, text="Статус: Ожидание", 
+                                     relief=tk.SUNKEN, anchor=tk.W)
+        self.status_label.pack(side=tk.BOTTOM, fill=tk.X, pady=(20, 0))
+        
+    def start_camera(self):
+        """Запуск веб-камеры"""
+        try:
+            self.cap = cv2.VideoCapture(0)
+            if not self.cap.isOpened():
+                messagebox.showerror("Ошибка", "Не удалось открыть камеру!")
+                return
+            self.is_recording = True
+            self.update_video()
+            self.update_status("Камера запущена")
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Ошибка запуска камеры: {e}")
+    
+    def update_video(self):
+        """Обновление видео в реальном времени"""
+        if self.is_recording and self.cap:
+            ret, frame = self.cap.read()
+            if ret:
+                # Конвертируем BGR в RGB
+                frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # Изменяем размер для отображения
+                height, width = frame_rgb.shape[:2]
+                max_size = 640
+                if width > max_size:
+                    scale = max_size / width
+                    new_width = max_size
+                    new_height = int(height * scale)
+                    frame_rgb = cv2.resize(frame_rgb, (new_width, new_height))
+                
+                # Конвертируем в ImageTk
+                img = Image.fromarray(frame_rgb)
+                imgtk = ImageTk.PhotoImage(image=img)
+                self.video_label.imgtk = imgtk
+                self.video_label.configure(image=imgtk)
+            
+            self.root.after(30, self.update_video)
+    
+    def capture_photo(self):
+        """Создание снимка"""
+        folder_name = self.folder_name_entry.get().strip()
+        
+        if not folder_name:
+            messagebox.showwarning("Внимание", "Введите название папки!")
+            return
+        
+        # Проверяем, существует ли папка
+        folder_path = Path.home() / "Pictures" / folder_name
+        if not folder_path.exists():
+            # Создаем новую папку
+            folder_path.mkdir(parents=True, exist_ok=True)
+            messagebox.showinfo("Информация", f"Создана новая папка: {folder_name}")
+        else:
+            messagebox.showinfo("Информация", f"Папка '{folder_name}' уже существует.\nФото будут сохранены в неё.")
+        
+        # Получаем текущий кадр
+        ret, frame = self.cap.read()
+        if ret:
+            # Определяем следующий номер фотографии
+            existing_files = list(folder_path.glob(f"{folder_name}-*.jpg"))
+            numbers = []
+            for f in existing_files:
+                try:
+                    num = int(f.stem.split('-')[-1])
+                    numbers.append(num)
+                except:
+                    pass
+            
+            next_num = max(numbers) + 1 if numbers else 1
+            
+            # Формируем имя файла
+            filename = f"{folder_name}-{next_num}.jpg"
+            filepath = folder_path / filename
+            
+            # Сохраняем фото
+            cv2.imwrite(str(filepath), frame)
+            self.update_status(f"Сохранено: {filename}")
+            self.info_label.config(text=f"Сохранено: {filename}\nПапка: {folder_path}")
+        else:
+            messagebox.showerror("Ошибка", "Не удалось захватить кадр!")
+    
+    def browse_folder(self):
+        """Выбор папки для просмотра"""
+        folder_path = filedialog.askdirectory(
+            title="Выберите папку с фотографиями",
+            initialdir=str(Path.home() / "Pictures")
+        )
+        
+        if folder_path:
+            self.current_folder = folder_path
+            self.load_photos_from_folder(folder_path)
+            self.open_gallery()
+    
+    def load_photos_from_folder(self, folder_path):
+        """Загрузка списка фото из папки"""
+        self.current_photos = sorted(glob.glob(os.path.join(folder_path, "*.jpg")))
+        if not self.current_photos:
+            messagebox.showinfo("Информация", "В выбранной папке нет фотографий")
+        else:
+            self.update_status(f"Найдено {len(self.current_photos)} фото")
+    
+    def open_gallery(self):
+        """Открытие галереи фотографий"""
+        if not self.current_folder:
+            # Если папка не выбрана, используем папку Pictures
+            self.current_folder = str(Path.home() / "Pictures")
+        
+        if not self.current_photos:
+            self.load_photos_from_folder(self.current_folder)
+        
+        if self.current_photos:
+            GalleryWindow(self.root, self.current_photos, self.current_folder)
+        else:
+            messagebox.showinfo("Информация", "Нет фотографий для просмотра")
+    
+    def update_status(self, message):
+        """Обновление статуса"""
+        self.status_label.config(text=f"Статус: {message}")
+    
+    def on_closing(self):
+        """Закрытие приложения"""
+        self.is_recording = False
+        if self.cap:
+            self.cap.release()
+        self.root.destroy()
+
+
+class GalleryWindow:
+    """Окно галереи для просмотра фотографий"""
+    
+    def __init__(self, parent, photos, folder):
+        self.window = tk.Toplevel(parent)
+        self.window.title(f"Галерея - {os.path.basename(folder)}")
+        self.window.geometry("800x600")
+        
+        self.photos = photos
+        self.current_index = 0
+        self.folder = folder
+        
+        # Создание интерфейса галереи
+        self.create_gallery_widgets()
+        
+        # Отображение первой фотографии
+        self.show_current_photo()
+        
+    def create_gallery_widgets(self):
+        """Создание интерфейса галереи"""
+        # Фрейм для изображения
+        self.image_frame = ttk.Frame(self.window)
+        self.image_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        self.image_label = ttk.Label(self.image_frame)
+        self.image_label.pack(expand=True)
+        
+        # Фрейм для кнопок навигации
+        nav_frame = ttk.Frame(self.window)
+        nav_frame.pack(fill=tk.X, padx=10, pady=10)
+        
+        self.prev_btn = ttk.Button(nav_frame, text="◀ Предыдущая", 
+                                   command=self.prev_photo)
+        self.prev_btn.pack(side=tk.LEFT, padx=5)
+        
+        self.next_btn = ttk.Button(nav_frame, text="Следующая ▶", 
+                                   command=self.next_photo)
+        self.next_btn.pack(side=tk.LEFT, padx=5)
+        
+        # Информация о фото
+        self.info_label = ttk.Label(nav_frame, text="")
+        self.info_label.pack(side=tk.LEFT, padx=20)
+        
+        # Кнопка открытия в папке
+        open_btn = ttk.Button(nav_frame, text="📂 Открыть папку", 
+                             command=self.open_folder)
+        open_btn.pack(side=tk.RIGHT, padx=5)
+        
+    def show_current_photo(self):
+        """Отображение текущей фотографии"""
+        if self.photos and 0 <= self.current_index < len(self.photos):
+            # Загружаем и отображаем изображение
+            img_path = self.photos[self.current_index]
+            img = Image.open(img_path)
+            
+            # Изменяем размер для отображения
+            max_size = 600
+            img.thumbnail((max_size, max_size), Image.Resampling.LANCZOS)
+            
+            photo = ImageTk.PhotoImage(img)
+            self.image_label.configure(image=photo)
+            self.image_label.image = photo
+            
+            # Обновляем информацию
+            filename = os.path.basename(img_path)
+            file_size = os.path.getsize(img_path) / 1024  # KB
+            self.info_label.config(text=f"{self.current_index + 1} из {len(self.photos)} | {filename} | {file_size:.1f} KB")
+            
+            # Обновляем состояние кнопок
+            self.prev_btn.config(state=tk.NORMAL if self.current_index > 0 else tk.DISABLED)
+            self.next_btn.config(state=tk.NORMAL if self.current_index < len(self.photos) - 1 else tk.DISABLED)
+    
+    def prev_photo(self):
+        """Предыдущее фото"""
+        if self.current_index > 0:
+            self.current_index -= 1
+            self.show_current_photo()
+    
+    def next_photo(self):
+        """Следующее фото"""
+        if self.current_index < len(self.photos) - 1:
+            self.current_index += 1
+            self.show_current_photo()
+    
+    def open_folder(self):
+        """Открытие папки с фотографиями в файловом менеджере"""
+        try:
+            os.system(f'xdg-open "{self.folder}"')
+        except Exception as e:
+            messagebox.showerror("Ошибка", f"Не удалось открыть папку: {e}")
+
+
+def main():
+    """Главная функция"""
+    # Проверяем наличие необходимых библиотек
+    try:
+        import cv2
+        import PIL
+    except ImportError as e:
+        print("Ошибка: Не установлены необходимые библиотеки!")
+        print("Установите их с помощью команды:")
+        print("sudo apt-get install python3-opencv python3-pil python3-pil.imagetk")
+        return
+    
+    root = tk.Tk()
+    app = CameraApp(root)
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
