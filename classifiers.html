@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MDM · Классификаторы и справочники</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f6;--p:#fff;--b:#d9dee8;--t:#1f2430;--m:#6b7280;--a:#3563e9;--d:#dc2626;--ok:#16a34a;--r:8px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Manrope",Arial,sans-serif;background:var(--bg);color:var(--t);font-size:14px;line-height:1.45}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace}
+.app{max-width:1280px;margin:0 auto;padding:20px}
+header.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+header.top h1{font-size:20px;font-weight:800}
+.muted{color:var(--m)}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;background:#edf1f8}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:var(--r);padding:8px 14px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;background:var(--p);color:var(--t);white-space:nowrap}
+.btn:hover{border-color:#b6c3d4}
+.btn.primary{background:var(--a);color:#fff;border-color:var(--a)}
+.btn.primary:hover{background:#2c52c8}
+.btn.danger{color:var(--d);border-color:var(--border)}
+.btn.solid-danger{background:var(--d);color:#fff;border-color:var(--d)}
+.btn.sm{padding:4px 9px;font-size:12px}
+.btn.ghost{background:transparent}
+.icon-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:4px;border-radius:6px;color:var(--m)}
+.icon-btn:hover{background:#eef2fa;color:var(--t)}
+.icon-btn.danger:hover{background:#fdeaec;color:var(--d)}
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.toolbar .space{flex:1}
+.search{border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;font-size:13px;min-width:220px;background:var(--p);font-family:inherit}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.tab{padding:11px 16px;cursor:pointer;border-bottom:2px solid transparent;font-weight:700;color:var(--m);background:none;border-top:none;border-left:none;border-right:none;font-size:14px;font-family:inherit}
+.tab.active{color:var(--a);border-bottom-color:var(--a)}
+.tab .badge{margin-left:6px}
+.card{background:var(--p);border:1px solid var(--border);border-radius:var(--r);box-shadow:0 1px 3px rgba(16,24,40,.08)}
+.card .body{padding:16px}
+.grid-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.item{background:#fbfcfe;border:1px solid var(--border);border-radius:var(--r);padding:15px;display:flex;flex-direction:column;gap:11px;cursor:pointer}
+.item:hover{border-color:var(--a)}
+.item .top{display:flex;justify-content:space-between;gap:8px}
+.item h3{font-size:15px;font-weight:700}
+.item .desc{color:var(--m);font-size:12.5px}
+.item .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.pill{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600}
+.pill.cls{background:#edf3ff;border-color:#c7d7ff;color:var(--a)}
+.empty{text-align:center;padding:36px 16px;color:var(--m)}
+.overlay{position:fixed;inset:0;background:rgba(16,24,40,.45);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:50}
+.overlay.open{display:flex}
+.modal{background:var(--p);border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,.2);width:100%;overflow:hidden}
+.sw{max-width:540px}.mw{max-width:760px}.lw{max-width:1000px}
+.modal .head{padding:16px 20px;border-bottom:1px solid var(--border);font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal .body{padding:20px}
+.modal .foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600;margin-bottom:6px;font-size:13px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:9px 12px;font-size:13px;background:#fff;font-family:inherit}
+.field textarea{resize:vertical;min-height:60px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--a);outline-offset:-1px}
+.field input[readonly]{background:#f4f6fa;color:var(--m)}
+.hint{font-size:12px;color:var(--m);margin-top:4px}
+.required::after{content:" *";color:var(--d)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.kv{display:grid;grid-template-columns:160px 1fr;gap:6px 14px;font-size:13px;margin-bottom:4px}
+.kv dt{color:var(--m);font-weight:600}
+.kv dd{font-weight:600;word-break:break-word}
+table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{background:#f6f8fc;text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);color:var(--m);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.02em}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border)}
+.tbl tbody tr:hover td{background:#f8fafd}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.dot.active{background:var(--ok)}.dot.inactive{background:#c4cbd6}.dot.released{background:var(--a)}
+.secline{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}
+.secline h4{font-size:14px;font-weight:800}
+.tree{margin-bottom:8px}
+.tree-head{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.tree-head:hover{background:#f8fafd}
+.caret{width:14px;text-align:center;color:var(--m);flex:none}
+.tree-children{margin:6px 0 6px 22px;border-left:1px solid var(--border);padding-left:12px}
+.tree-actions{margin-left:auto;display:flex;gap:2px}
+.tbadge{background:#eef2f8;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#111827;color:#fff;padding:11px 20px;border-radius:var(--r);font-size:13px;opacity:0;transition:all .25s;z-index:100;pointer-events:none;max-width:90%}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div>
+      <h1>Master Data Management</h1>
+      <div class="muted" style="font-size:13px;margin-top:2px">Классификаторы и справочники · рабочий прототип</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="badge" id="stats-badge"></span>
+      <button class="btn sm" onclick="resetDemo()">⟳ Сбросить демо-данные</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="classifiers">Классификаторы <span class="badge" id="cf-count">0</span></button>
+    <button class="tab" data-tab="directories">Справочники <span class="badge" id="dir-count">0</span></button>
+  </div>
+  <p class="muted" id="tab-help" style="font-size:12.5px;margin:-6px 0 16px;line-height:1.5"></p>
+
+  <section id="view-classifiers">
+    <div class="toolbar">
+      <input class="search" id="cf-search" placeholder="Поиск по названию, коду, версии...">
+      <select class="search" id="cf-status" style="min-width:160px">
+        <option value="">Все статусы</option><option value="active">В разработке</option>
+        <option value="released">Опубликован</option><option value="inactive">Архив</option>
+      </select>
+      <div class="space"></div>
+      <button class="btn primary" onclick="openClassifierForm()">+ Новый классификатор</button>
+    </div>
+    <div class="card"><div class="body" id="classifier-grid"></div></div>
+  </section>
+
+  <section id="view-directories" style="display:none">
+    <div class="toolbar">
+      <input class="search" id="dir-search" placeholder="Поиск по наименованию, коду, реквизиту...">
+      <select class="search" id="dir-cf" style="min-width:200px"><option value="">Все классификаторы</option></select>
+      <div class="space"></div>
+      <button class="btn primary" onclick="openDirectoryForm()">+ Новый справочник</button>
+    </div>
+    <div class="card"><div class="body" id="directory-grid"></div></div>
+  </section>
+</div>
+
+<!-- Форма классификатора -->
+<div class="overlay" id="ov-cf"><div class="modal mw">
+  <div class="head"><span id="cf-form-title">Новый классификатор</span><button class="btn sm ghost" onclick="closeModal('ov-cf')">✕</button></div>
+  <div class="body">
+    <input type="hidden" id="cf-id">
+    <div class="row3">
+      <div class="field"><label class="required">Код (шифр)</label><input id="cf-code"></div>
+      <div class="field" style="grid-column:span 2"><label class="required">Наименование</label><input id="cf-name"></div>
+    </div>
+    <div class="row3">
+      <div class="field"><label>Версия</label><input id="cf-version"></div>
+      <div class="field"><label>Статус</label>
+        <select id="cf-status-f"><option value="active">В разработке</option><option value="released">Опубликован</option><option value="inactive">Архив</option></select></div>
+      <div class="field"><label>Структура</label>
+        <select id="cf-tree"><option value="tree">Дерево (иерархия)</option><option value="flat">Одноуровневый список</option></select></div>
+    </div>
+    <div class="field"><label>Описание</label><textarea id="cf-desc"></textarea></div>
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-cf')">Отмена</button><button class="btn primary" onclick="saveClassifier()">Сохранить</button></div>
+</div></div>
+
+<!-- Детали классификатора + категории -->
+<div class="overlay" id="ov-cd"><div class="modal lw">
+  <div class="head"><span id="cd-title"></span><button class="btn sm ghost" onclick="closeModal('ov-cd')">✕</button></div>
+  <div class="body">
+    <div class="kv"><dt>Код</dt><dd class="mono" id="cd-code"></dd></div>
+    <div class="kv"><dt>Статус</dt><dd id="cd-status"></dd></div>
+    <div class="kv"><dt>Версия</dt><dd id="cd-version"></dd></div>
+    <div class="kv"><dt>Структура</dt><dd id="cd-tree"></dd></div>
+    <div class="kv"><dt>Используют в справочниках</dt><dd id="cd-dirs"></dd></div>
+    <div class="kv"><dt>Описание</dt><dd class="muted" id="cd-desc"></dd></div>
+    <div class="secline"><h4>Категории</h4><button class="btn sm primary" onclick="openCategory()">+ Добавить категорию</button></div>
+    <div id="cd-treebox"></div>
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-cd')">Закрыть</button><button class="btn primary" onclick="openClassifierForm(ctxCls)">Изменить классификатор</button></div>
+</div></div>
+
+<!-- Форма категории -->
+<div class="overlay" id="ov-cat"><div class="modal mw">
+  <div class="head"><span id="cat-title"></span><button class="btn sm ghost" onclick="closeModal('ov-cat')">✕</button></div>
+  <div class="body">
+    <input type="hidden" id="cat-id">
+    <input type="hidden" id="cat-parent">
+    <div class="row2">
+      <div class="field"><label>Код</label><input id="cat-code" readonly></div>
+      <div class="field"><label class="required">Наименование</label><input id="cat-name"></div>
+    </div>
+    <div class="field"><label>Родительская категория</label><input id="cat-parents" readonly></div>
+    <div class="field"><label>Описание</label><textarea id="cat-desc"></textarea></div>
+    <label style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px"><input type="checkbox" id="cat-active" checked style="width:16px;height:16px"> Категория активна</label>
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-cat')">Отмена</button><button class="btn primary" onclick="saveCategory()">Сохранить</button></div>
+</div></div>
+
+<!-- Форма справочника -->
+<div class="overlay" id="ov-df"><div class="modal lw">
+  <div class="head"><span id="df-title"></span><button class="btn sm ghost" onclick="closeModal('ov-df')">✕</button></div>
+  <div class="body">
+    <input type="hidden" id="d-id">
+    <div class="row3">
+      <div class="field"><label>Шифр (код)</label><input id="d-code" readonly></div>
+      <div class="field" style="grid-column:span 2"><label class="required">Наименование</label><input id="d-name"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label class="required">Классификатор</label>
+        <select id="d-classifier"></select>
+        <div class="hint">Категории выбранного классификатора доступны для реквизитов типа «Категория классификатора».</div></div>
+      <div class="field"><label>Статус</label>
+        <select id="d-status"><option value="active">В разработке</option><option value="released">Опубликован</option><option value="inactive">Архив</option></select></div>
+    </div>
+    <div class="field"><label>Описание</label><textarea id="d-desc"></textarea></div>
+
+    <div class="secline"><h4>Реквизиты справочника <span class="muted" id="attr-count"></span></h4>
+      <button class="btn sm primary" onclick="openAttrForm()">+ Добавить реквизит</button></div>
+    <table class="tbl">
+      <thead><tr><th>Код</th><th>Наименование</th><th>Тип данных</th><th>Обязательный</th><th style="width:40px"></th></tr></thead>
+      <tbody id="attr-tbody"></tbody>
+    </table>
+  </div>
+  <div class="foot">
+    <button class="btn" onclick="closeModal('ov-df')">Отмена</button>
+    <button class="btn" onclick="openElements()">Записи справочника</button>
+    <button class="btn primary" onclick="saveDirectory()">Сохранить</button>
+  </div>
+</div></div>
+
+<!-- Форма реквизита -->
+<div class="overlay" id="ov-attr"><div class="modal mw">
+  <div class="head"><span id="attr-title"></span><button class="btn sm ghost" onclick="closeModal('ov-attr')">✕</button></div>
+  <div class="body">
+    <input type="hidden" id="a-id">
+    <div class="row2">
+      <div class="field"><label>Код</label><input id="a-code" readonly></div>
+      <div class="field"><label class="required">Наименование</label><input id="a-name"></div>
+    </div>
+    <div class="field"><label class="required">Тип данных</label>
+      <select id="a-datatype" onchange="onAttrTypeChange()">
+        <option value="string">Строка</option><option value="number">Число</option>
+        <option value="date">Дата</option><option value="bool">Логическое</option>
+        <option value="category">Категория классификатора</option>
+      </select></div>
+    <div class="field" id="a-mask-wrap" style="display:none"><label>Маска</label><input id="a-mask"></div>
+    <label style="font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px"><input type="checkbox" id="a-required" style="width:16px;height:16px"> Обязательное поле</label>
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-attr')">Отмена</button><button class="btn primary" onclick="saveAttr()">Сохранить</button></div>
+</div></div>
+
+<!-- Записи справочника -->
+<div class="overlay" id="ov-el"><div class="modal lw">
+  <div class="head"><span id="el-title"></span><button class="btn sm ghost" onclick="closeModal('ov-el')">✕</button></div>
+  <div class="body">
+    <div class="toolbar"><span class="muted">Данные справочника</span><div class="space"></div>
+      <button class="btn primary" onclick="openElForm()">+ Добавить запись</button></div>
+    <div id="el-table"></div>
+  </div>
+  <div class="foot"><button class="btn primary" onclick="closeModal('ov-el')">Готово</button></div>
+</div></div>
+
+<!-- Форма записи -->
+<div class="overlay" id="ov-elf"><div class="modal mw">
+  <div class="head"><span id="elf-title"></span><button class="btn sm ghost" onclick="closeModal('ov-elf')">✕</button></div>
+  <div class="body">
+    <input type="hidden" id="e-id">
+    <div class="field"><label>Код записи</label><input id="e-code" readonly></div>
+    <div id="e-fields"></div>
+  </div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-elf')">Отмена</button><button class="btn primary" onclick="saveElement()">Сохранить</button></div>
+</div></div>
+
+<!-- Подтверждение -->
+<div class="overlay" id="ov-conf"><div class="modal sw">
+  <div class="head">Подтверждение</div>
+  <div class="body"><div id="conf-msg"></div><div id="conf-warn" style="margin-top:10px;font-size:12.5px;color:var(--warning)"></div></div>
+  <div class="foot"><button class="btn" onclick="closeModal('ov-conf')">Отмена</button><button class="btn solid-danger" onclick="confirmAction()">Подтвердить</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<script>
+const STORE_KEY='mdm_proto_v3';
+function seed(){
+  return {
+    classifiers:[
+      {id:'c1',code:'КФ-001',name:'Категории товаров',version:'1.2',status:'released',tree:true,desc:'Основная группировка товарного каталога.',
+        categories:[
+          {id:'k1',name:'Электроника',code:'01',parent:null,active:true,desc:''},
+          {id:'k2',name:'Смартфоны',code:'01.01',parent:'k1',active:true,desc:''},
+          {id:'k3',name:'Ноутбуки',code:'01.02',parent:'k1',active:true,desc:''},
+          {id:'k4',name:'Бытовая техника',code:'02',parent:null,active:true,desc:''},
+          {id:'k5',name:'Холодильники',code:'02.01',parent:'k4',active:true,desc:''}]},
+      {id:'c2',code:'КФ-002',name:'Категории услуг',version:'1.0',status:'active',tree:false,desc:'Группировка услуг компании.',
+        categories:[
+          {id:'u1',name:'Консалтинг',code:'01',parent:null,active:true,desc:''},
+          {id:'u2',name:'Аудит',code:'02',parent:null,active:true,desc:''}]},
+      {id:'c3',code:'КФ-003',name:'Территориальные округа',version:'0.9',status:'inactive',tree:true,desc:'Территориальная классификация.',categories:[]}
+    ],
+    directories:[
+      {id:'d1',code:'СПР-0001',name:'Единицы измерения',status:'released',classifierId:'c1',desc:'Классификатор единиц измерения.',
+        attributes:[
+          {id:'a1',code:'АТР-0001',name:'Условное обозначение',datatype:'string',required:true},
+          {id:'a2',code:'АТР-0002',name:'Дробность',datatype:'number',required:true},
+          {id:'a3',code:'АТР-0003',name:'Категория товара',datatype:'category',required:true}],
+        elements:[
+          {id:'e1',code:'ЗП-000001',values:{a1:'шт',a3:'k1'}},
+          {id:'e2',code:'ЗП-000002',values:{a1:'кг',a3:'k4'}}]},
+      {id:'d2',code:'СПР-0002',name:'МСС-коды',status:'released',classifierId:'c2',desc:'Платёжная классификация.',
+        attributes:[
+          {id:'b1',code:'АТР-0001',name:'МСС-код',datatype:'string',required:true},
+          {id:'b2',code:'АТР-0002',name:'Категория',datatype:'category',required:false}],
+        elements:[{id:'e1',code:'ЗП-000001',values:{b1:'5815',b2:'u1'}}]},
+      {id:'d3',code:'СПР-0003',name:'Страны мира',status:'active',classifierId:'',desc:'Перечень стран по ОКСМ.',
+        attributes:[{id:'a1',code:'АТР-0001',name:'Наименование',datatype:'string',required:true}],
+        elements:[]}
+    ]
+  };
+}
+function load(){const r=localStorage.getItem(STORE_KEY);if(r){try{return JSON.parse(r)}catch(e){}}return seed()}
+let state=load();
+function persist(){localStorage.setItem(STORE_KEY,JSON.stringify(state));refresh()}
+function resetDemo(){localStorage.removeItem(STORE_KEY);state=seed();refresh();toast('Демо-данные сброшены')}
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2400)}
+function openModal(id){$(id).classList.add('open')}
+function closeModal(id){$(id).classList.remove('open')}
+function pad0(n,l){return String(n).padStart(l,'0')}
+function emptyState(t){return '<div class="empty" style="text-align:center;padding:30px"><div style="font-size:32px;margin-bottom:8px;opacity:.4">🗂</div><b>'+esc(t)+'</b></div>'}
+function clsBy(id){return state.classifiers.find(c=>c.id===id)}
+function dirBy(id){return state.directories.find(d=>d.id===id)}
+let seqC=0,seqK=0,seqA=0,seqE=0,seqD=0;
+function catGet(cid,id){const c=clsBy(cid);return c?c.categories.find(k=>k.id===id):null}
+function catName(cid,id){const k=catGet(cid,id);return k?k.name:''}
+function catPath(cid,id){
+  const c=clsBy(cid);const parts=[];
+  let cur=catGet(cid,id);
+  while(cur){parts.unshift(cur.name);cur=cur.parent?catGet(cid,cur.parent):null}
+  return parts.join(' / ');
+}
+function nextCode(kind){let mx=0;const arr=kind==='c'?state.classifiers:state.directories;arr.forEach(o=>{const m=(o.code||'').match(/(\d+)\s*$/);if(m){const n=+m[1];if(n>mx)mx=n}});return kind==='c'?'КФ-'+pad0(mx+1,3):'СПР-'+pad0(mx+1,4)}
+function nextAttrCode(attrs){let mx=0;attrs.forEach(a=>{const m=(a.code||'').match(/(\d+)\s*$/);if(m){const n=+m[1];if(n>mx)mx=n}});return 'АТР-'+pad0(mx+1,4)}
+function nextElementCode(el){let mx=0;el.forEach(x=>{const m=(x.code||'').match(/(\d+)\s*$/);if(m){const n=+m[1];if(n>mx)mx=n}});return 'ЗП-'+pad0(mx+1,6)}
+const STATUS={active:'В разработке',released:'Опубликован',inactive:'Архив'};
+const DT={string:'Строка',number:'Число',date:'Дата',bool:'Логическое',category:'Категория классификатора'};
+let activeTab='classifiers';
+let ctxCls=null;
+let ctxDir=null;
+let pending=null;
+
+/* ---------- навигация ---------- */
+const HELP={
+  classifiers:'Классификатор — иерархия категорий. Код (шифр) категории наращивается на каждом уровне: 01 → 01.01. К классификатору привязываются справочники.',
+  directories:'Справочник — реестр MDM-записей с настраиваемыми реквизитами. Внутри справочника выбирается классификатор, а реквизит «Категория классификатора» связывает записи с категориями.'
+};
+function switchTab(t){
+  activeTab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  $('view-classifiers').style.display=t==='classifiers'?'':'none';
+  $('view-directories').style.display=t==='directories'?'':'none';
+  $('tab-help').textContent=HELP[t];
+  if(t==='directories')fillDirFilter();
+  render();
+}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+$('cf-search').addEventListener('input',()=>renderClassifiers());
+$('cf-status').addEventListener('change',()=>renderClassifiers());
+$('dir-search').addEventListener('input',()=>renderDirectories());
+$('dir-cf').addEventListener('change',()=>renderDirectories());
+
+function stPill(s){return '<span class="pill"><span class="status-dot '+s+'"></span>'+STATUS[s]+'</span>'}
+
+/* ---------- классификаторы ---------- */
+function renderClassifiers(){
+  const q=$('cf-search').value.toLowerCase(),st=$('cf-status').value;
+  const list=state.classifiers.filter(c=>(q===''||c.name.toLowerCase().includes(q)||c.code.toLowerCase().includes(q)||(c.version||'').includes(q))&&(st===''||c.status===st));
+  const g=$('classifier-grid');
+  if(!list.length){g.innerHTML=emptyState('Классификаторы не найдены');return}
+  g.innerHTML='<div class="grid-list">'+list.map(c=>{
+    const dn=state.directories.filter(d=>d.classifierId===c.id).length;
+    return '<div class="item" onclick="openClassifierDetail(\''+c.id+'\')">'+
+      '<div class="top"><div>'+
+        '<div class="meta" style="margin-bottom:6px"><span class="pill mono">'+esc(c.code)+'</span>'+stPill(c.status)+'<span class="pill mono">v'+esc(c.version||'—')+'</span></div>'+
+        '<h3>'+esc(c.name)+'</h3><div class="desc">'+esc(c.desc||'')+'</div></div>'+
+        '<div class="actions disi" onclick="event.stopPropagation()">'+
+          '<button class="icon-btn" title="Изменить" onclick="openClassifierForm(\''+c.id+'\')">✏️</button>'+
+          '<button class="icon-btn danger" title="Удалить" onclick="requestDelete(\'classifier\',\''+c.id+'\')">🗑</button></div></div>'+
+      '<div class="meta"><span class="pill">категорий: '+c.categories.length+'</span><span class="pill cls">справочников: '+dn+'</span></div></div>';
+  }).join('')+'</div>';
+}
+function openClassifierForm(id){
+  const c=id?clsBy(id):null;
+  $('cf-form-title').textContent=c?'Изменить классификатор':'Новый классификатор';
+  $('cf-id').value=c?c.id:'';
+  $('cf-code').value=c?c.code:nextCode('c');
+  $('cf-name').value=c?c.name:'';
+  $('cf-version').value=c?c.version:'1.0';
+  $('cf-status-f').value=c?c.status:'active';
+  $('cf-tree').value=c?(c.tree?'tree':'flat'):'tree';
+  $('cf-desc').value=c?(c.desc||''):'';
+  openModal('ov-cf');
+}
+function saveClassifier(){
+  const id=$('cf-id').value;
+  const code=$('cf-code').value.trim(),name=$('cf-name').value.trim();
+  if(!code||!name){toast('Заполните код и наименование');return}
+  if(state.classifiers.some(x=>x.code.toLowerCase()===code.toLowerCase()&&x.id!==id)){toast('Код уже используется');return}
+  const data={code,name,version:$('cf-version').value.trim()||'1.0',status:$('cf-status-f').value,tree:$('cf-tree').value==='tree',desc:$('cf-desc').value.trim()};
+  if(id){Object.assign(clsBy(id),data);toast('Классификатор обновлён')}
+  else{const nc={id:'c'+(++seqC),categories:[],...data};state.classifiers.push(nc);ctxCls=nc.id;openClassifierDetail(nc.id);toast('Классификатор создан')}
+  persist();closeModal('ov-cf');
+}
+
+/* ---------- детали классификатора + категории ---------- */
+function openClassifierDetail(id){
+  ctxCls=id;const c=clsBy(id);if(!c)return;
+  $('cd-title').textContent=c.name;
+  $('cd-code').textContent=c.code;
+  $('cd-status').innerHTML=stPill(c.status);
+  $('cd-version').textContent=c.version||'—';
+  $('cd-tree').textContent=c.tree?'Дерево (иерархия)':'Одноуровневый список';
+  $('cd-dirs').textContent=state.directories.filter(d=>d.classifierId===id).length;
+  $('cd-desc').textContent=c.desc||'—';
+  renderCatTree($('cd-treebox'),c);
+  openModal('ov-cd');
+}
+function byCode(a,b){return (a.code||'').localeCompare(b.code||'',undefined,{numeric:true})}
+function catChildren(c,p){return c.categories.filter(k=>k.parent===p).sort(byCode)}
+function nodeHTML(c,k){
+  const kids=catChildren(c,k.id);
+  return '<div class="tree"><div class="tree-head" data-id="'+k.id+'">'+
+    '<span class="caret">'+(kids.length?'▸':'·')+'</span>'+
+    '<span class="tbadge mono">'+esc(k.code||'—')+'</span>'+
+    '<span>'+esc(k.name)+(k.active?'':' <em class="muted">(архив)</em>')+'</span>'+
+    '<div class="tree-actions" onclick="event.stopPropagation()">'+
+      '<button class="icon-btn" title="Добавить подкатегорию" onclick="openCategory(null,\''+k.id+'\')">＋</button>'+
+      '<button class="icon-btn" title="Изменить" onclick="openCategory(\''+k.id+'\')">✏️</button>'+
+      '<button class="icon-btn danger" title="Удалить" onclick="requestDelete(\'category\',\''+k.id+'\')">🗑</button></div></div>'+
+    (kids.length?'<div class="tree-children">'+kids.map(x=>nodeHTML(c,x)).join('')+'</div>':'')+'</div>';
+}
+function renderCatTree(el,c){el.innerHTML=catChildren(c,null).map(k=>nodeHTML(c,k)).join('')||emptyState('Категорий пока нет')}
+function openCategory(id,parent){
+  const c=clsBy(ctxCls);if(!c)return;
+  const p=parent||'';
+  $('cat-parent').value=p;
+  const path=p?catPath(c,p):'Корневая категория (уровень 1)';
+  if(id){
+    const k=catGet(ctxCls,id);
+    $('cat-id').value=k.id;$('cat-code').value=k.code;$('cat-name').value=k.name;
+    $('cat-desc').value=k.desc||'';$('cat-active').checked=k.active!==false;
+    $('cat-parents').value=path;$('cat-title').textContent='Изменить категорию';
+  }else{
+    $('cat-id').value='';
+    $('cat-code').value=autoCode(c,p);
+    $('cat-name').value='';$('cat-desc').value='';$('cat-active').checked=true;
+    $('cat-parents').value=path;$('cat-title').textContent='Новая категория';
+  }
+  openModal('ov-cat');
+}
+function autoCode(c,p){
+  if(!p){return pad0(catChildren(c,null).length+1,2)}
+  const par=catGet(c.id,p);
+  const n=catChildren(c,p).length+1;
+  return par.code+'.'+pad0(n,2);
+}
+function saveCategory(){
+  const c=clsBy(ctxCls);if(!c)return;
+  const id=$('cat-id').value,name=$('cat-name').value.trim();
+  if(!name){toast('Укажите наименование категории');return}
+  if(id){
+    const k=catGet(ctxCls,id);Object.assign(k,{name,desc:$('cat-desc').value.trim(),active:$('cat-active').checked});
+    toast('Категория обновлена');
+  }else{
+    const pp=$('cat-parent').value;
+    const code=autoCode(c,pp);
+    const nc={id:'k'+(++seqK),name,code,parent:pp||null,active:$('cat-active').checked,desc:$('cat-desc').value.trim()};
+    c.categories.push(nc);toast('Категория добавлена');
+  }
+  persist();closeModal('ov-cat');openClassifierDetail(ctxCls);
+}
+
+/* ---------- справочники ---------- */
+function fillDirFilter(){
+  const sel=$('dir-cf');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">Все классификаторы</option>'+state.classifiers.map(c=>'<option value="'+c.id+'">'+esc(c.name)+'</option>').join('');
+  sel.value=cur;
+}
+function renderDirectories(){
+  const q=$('dir-search').value.toLowerCase(),fc=$('dir-cf').value;
+  const list=state.directories.filter(d=>(fc===''||d.classifierId===fc)&&(q===''||d.name.toLowerCase().includes(q)||d.code.toLowerCase().includes(q)||d.attributes.some(a=>a.name.toLowerCase().includes(q))));
+  const g=$('directory-grid');
+  if(!list.length){g.innerHTML=emptyState('Справочники не найдены');return}
+  g.innerHTML='<div class="grid-list">'+list.map(d=>{
+    const cn=d.classifierId?clsBy(d.classifierId):null;
+    const ccat=d.attributes.filter(a=>a.datatype==='category').length;
+    const cb=cn?'<span class="pill cls">📂 '+esc(cn.name)+'</span>':'<span class="pill">без классификатора</span>';
+    return '<div class="item" onclick="openDirectoryForm(\''+d.id+'\')">'+
+      '<div class="top"><div>'+
+        '<div class="meta" style="margin-bottom:6px"><span class="pill mono">'+esc(d.code)+'</span>'+stPill(d.status)+'</div>'+
+        '<h3>'+esc(d.name)+'</h3><div class="desc">'+esc(d.desc||'')+'</div></div>'+
+        '<div class="disi" onclick="event.stopPropagation()">'+
+          '<button class="icon-btn danger" title="Удалить" onclick="requestDelete(\'directory\',\''+d.id+'\')">🗑</button></div></div>'+
+      '<div class="meta">'+cb+'<span class="pill">реквизитов: '+d.attributes.length+'</span><span class="pill">записей: '+d.elements.length+'</span></div></div>';
+  }).join('')+'</div>';
+}
+function openDirectoryForm(id){
+  ctxDir=id?dirBy(id):null;
+  $('df-title').textContent=ctxDir?'Справочник · '+ctxDir.name:'Новый справочник';
+  $('d-id').value=ctxDir?ctxDir.id:'';
+  $('d-code').value=ctxDir?ctxDir.code:nextCode('d');
+  $('d-name').value=ctxDir?ctxDir.name:'';
+  $('d-status').value=ctxDir?ctxDir.status:'active';
+  $('d-desc').value=ctxDir?(ctxDir.desc||''):'';
+  fillClassifierSel($('d-classifier'),ctxDir?ctxDir.classifierId:'');
+  renderAttrs();
+  openModal('ov-df');
+}
+function fillClassifierSel(sel,val){
+  sel.innerHTML='<option value="">— без классификатора —</option>'+state.classifiers.map(c=>'<option value="'+c.id+'"'+(c.id===val?' selected':'')+'>'+esc(c.name)+' ('+esc(c.code)+')</option>').join('');
+}
+function saveDirectory(){
+  const id=$('d-id').value;
+  const name=$('d-name').value.trim();
+  if(!name){toast('Укажите наименование справочника');return}
+  const classifierId=$('d-classifier').value;
+  const data={name,classifierId,status:$('d-status').value,desc:$('d-desc').value.trim()};
+  if(id){Object.assign(dirBy(id),data);toast('Справочник обновлён')}
+  else{const nd={id:'d'+(++seqD),code:nextCode('d'),attributes:[],elements:[],...data};state.directories.push(nd);toast('Справочник создан')}
+  persist();closeModal('ov-df');renderDirectories();
+}
+function renderAttrs(){
+  const d=dirBy($('d-id').value);
+  const tb=$('attr-tbody');
+  $('attr-count').textContent='· '+d.attributes.length;
+  tb.innerHTML=d.attributes.map((a,i)=>'<tr>'+
+    '<td class="mono">'+esc(a.code)+'</td>'+
+    '<td>'+esc(a.name)+'</td>'+
+    '<td>'+(DT[a.datatype]||a.datatype)+'</td>'+
+    '<td>'+(a.required?'<b style="color:var(--ok)">да</b>':'нет')+'</td>'+
+    '<td><button class="icon-btn" onclick="openAttrForm(\''+a.id+'\')">✏️</button><button class="icon-btn danger" onclick="requestDelete(\'attr\',\''+a.id+'\')">🗑</button></td></tr>').join('')||'<tr><td colspan="5">Реквизитов нет</td></tr>';
+}
+function openAttrForm(id){
+  const d=dirBy($('d-id').value);if(!d)return;
+  const a=id?d.attributes.find(x=>x.id===id):null;
+  $('attr-title').textContent=a?'Изменить реквизит':'Новый реквизит';
+  $('a-id').value=a?a.id:'';
+  $('a-code').value=a?a.code:nextAttrCode(d.attributes);
+  $('a-name').value=a?a.name:'';
+  $('a-datatype').value=a?a.datatype:'string';
+  $('a-required').checked=a?(a.required===true):false;
+  onAttrTypeChange();
+  openModal('ov-attr');
+}
+function onAttrTypeChange(){
+  const t=$('a-datatype').value;
+  $('a-mask-wrap').style.display=(t==='string')?'':'none';
+  const hint='Строка — произвольный текст; Число — численное значение; Дата — дата; Логическое — да/нет; Категория классификатора — значение выбирается из категорий классификатора, заданного в справочнике.';
+  $('a-hint').textContent=hint;
+}
+function saveAttr(){
+  const d=dirBy($('d-id').value);if(!d)return;
+  const id=$('a-id').value,name=$('a-name').value.trim();
+  if(!name){toast('Укажите наименование реквизита');return}
+  const data={name,datatype:$('a-datatype').value,required:$('a-required').checked};
+  if(id){Object.assign(d.attributes.find(x=>x.id===id),data)}
+  else{d.attributes.push({id:'a'+(++seqA),code:nextAttrCode(d.attributes),...data})}
+  persist();closeModal('ov-attr');renderAttrs();
+}
+function removeAttr(id){
+  const d=dirBy($('d-id').value);if(!d)return;
+  d.attributes=d.attributes.filter(x=>x.id!==id);
+  d.elements.forEach(e=>delete e.values[id]);
+  persist();renderAttrs();
+}
+
+/* ---------- записи справочника ---------- */
+function openElements(){
+  const d=dirBy($('d-id').value);if(!d)return;
+  ctxDir=d;
+  $('el-title').textContent='Записи · '+d.name+' ('+d.code+')';
+  renderElements();
+  openModal('ov-el');
+}
+function catOpts(clsId,cur){
+  const c=clsBy(clsId);if(!c)return '<option value="">—</option>';
+  return '<option value="">— не выбрано —</option>'+c.categories.map(k=>'<option value="'+k.id+'"'+(k.id===cur?' selected':'')+'>'+esc(catPath(clsId,k.id))+'</option>').join('');
+}
+function renderElements(){
+  const d=ctxDir;if(!d)return;
+  $('el-table').innerHTML='<table class="tbl"><thead><tr><th>Код</th>'+d.attributes.map(a=>'<th>'+esc(a.name)+'</th>').join('')+'<th style="width:40px"></th></tr></thead><tbody>'+
+    d.elements.map(e=>{
+      const t='<td>'+d.attributes.map(a=>{
+        let v=e.values[a.id];
+        if(v===undefined||v==='')return '<span class="muted">—</span>';
+        if(a.datatype==='category')return esc(catPath(d.classifierId,v)||v);
+        if(a.datatype==='bool')return v===true||v==='1'?'да':'нет';
+        return esc(v);
+      }).join('')+'</td>';
+      return '<tr><td class="mono">'+esc(e.code)+'</td>'+t+'<td style="white-space:nowrap"><button class="icon-btn" onclick="openElForm(\''+e.id+'\')">✏️</button><button class="icon-btn danger" onclick="removeElement(\''+e.id+'\')">🗑</button></td></tr>';
+    }).join('')+'</tbody></table>';
+  if(!d.elements.length)$('el-table').innerHTML=emptyState('Записей ещё нет');
+}
+function openElForm(id){
+  const d=ctxDir;if(!d)return;
+  const e=id?d.elements.find(x=>x.id===id):null;
+  $('elf-title').textContent=e?'Изменить запись · '+e.code:'Новая запись';
+  $('e-id').value=e?e.id:'';
+  $('e-code').value=e?e.code:nextElementCode(d.elements);
+  const wrap=$('e-fields');
+  wrap.innerHTML=!d.attributes.length?'<div class="hint">Сначала добавьте реквизиты.</div>':d.attributes.map(a=>{
+    const cur=e?(e.values[a.id]):undefined;
+    let inp;
+    if(a.datatype==='category'){
+      inp='<select id="ef-'+a.id+'">'+catOpts(d.classifierId,cur)+'</select>';
+    }else if(a.datatype==='bool'){
+      inp='<select id="ef-'+a.id+'"><option value="1"'+(cur===true||cur==='1'?' selected':'')+'>да</option><option value="0"'+(cur===false||cur==='0'||cur==null?' selected':'')+'>нет</option></select>';
+    }else if(a.datatype==='number'){
+      inp='<input id="ef-'+a.id+'" type="number" value="'+(cur==null?'':esc(cur))+'">';
+    }else if(a.datatype==='date'){
+      inp='<input id="ef-'+a.id+'" type="date" value="'+esc(cur||'')+'">';
+    }else{
+      inp='<input id="ef-'+a.id+'" value="'+esc(cur||'')+'"'+(a.datatype==='string'?'':'')+'>';
+    }
+    return '<div class="field"><label>'+(a.required?'<span class="required">':'')+esc(a.name)+(a.required?'</span>':'')+' <span class="muted">('+DT[a.datatype]+')</span></label>'+inp+'</div>';
+  }).join('');
+  openModal('ov-elf');
+}
+function saveElement(){
+  const d=ctxDir;if(!d)return;
+  const id=$('e-id').value;
+  const values={};
+  let miss=false;
+  d.attributes.forEach(a=>{
+    const el=$('ef-'+a.id);if(!el)return;
+    let v=el.value;
+    if(a.datatype==='bool')v=(el.value==='true'||el.value==='1');
+    if(a.datatype==='number'&&v!=='')v=v===''?'':Number(v);
+    if(a.required&&(v===''||v==null))miss=true;
+    values[a.id]=v;
+  });
+  if(miss){toast('Заполните обязательные реквизиты');return}
+  if(id){Object.assign(d.elements.find(x=>x.id===id),{values})}
+  else{d.elements.push({id:'e'+(++seqE),code:$('e-code').value,values})}
+  persist();closeModal('ov-elf');renderElements();
+}
+function removeElement(id){
+  const d=ctxDir;if(d)d.elements=d.elements.filter(x=>x.id!==id);
+  persist();renderElements();toast('Запись удалена');
+}
+function removeCategory(cid,katid){
+  const c=clsBy(cid);if(!c)return;
+  const dead=new Set();const stack=[katid];
+  while(stack.length){const cur=stack.pop();dead.add(cur);c.categories.filter(k=>k.parent===cur).forEach(k=>stack.push(k.id))}
+  c.categories=c.categories.filter(k=>!dead.has(k.id));
+  state.directories.forEach(d=>{if(d && d.elements) d.elements.forEach(e=>{d.attributes.forEach(a=>{if(a.datatype==='category'&&dead.has(e.values[a.id]))e.values[a.id]=''})})});
+}
+
+/* ---------- удаление ---------- */
+function requestDelete(type,id){
+  let msg='',warn='';
+  if(type==='classifier'){const c=clsBy(id);const n=state.directories.filter(d=>d.classifierId===id).length;
+    msg='Удалить классификатор «'+c.name+'»?';warn=n?'Будет сброшена привязка у '+n+' справочника(ов).':'';}
+  else if(type==='directory'){const d=dirBy(id);const n=d.elements.length;
+    msg='Удалить справочник «'+d.name+'»?';warn='Будут удалены '+n+' записей и '+d.attributes.length+' реквизитов.';}
+  else if(type==='category'){const c=clsBy(ctxCls);const k=catGet(ctxCls,id);
+    msg='Удалить категорию «'+k.name+'» и всех её подкатегорий?';warn='Записи, ссылающиеся на неё, будут очищены.';}
+  else if(type==='attr'){const d=dirBy($('d-id').value);
+    msg='Удалить реквизит «'+d.attributes.find(a=>a.id===id).name+'»?';warn='Значения этого реквизита будут удалены из записей.';}
+  $('conf-msg').textContent=msg;$('conf-warn').textContent=warn;
+  pending={type,id};openModal('ov-conf');
+}
+function confirmAction(){
+  const p=pending;if(!p)return;
+  if(p.type==='classifier'){state.directories.forEach(d=>{if(d.classifierId===p.id)d.classifierId=''});state.classifiers=state.classifiers.filter(c=>c.id!==p.id);toast('Классификатор удалён');}
+  else if(p.type==='directory'){state.directories=state.directories.filter(d=>d.id!==p.id);toast('Справочник удалён');closeModal('ov-df');}
+  else if(p.type==='category'){removeCategory(ctxCls,p.id);toast('Категория удалена');openClassifierDetail(ctxCls);}
+  else if(p.type==='attr'){removeAttr(p.id);toast('Реквизит удалён');}
+  pending=null;closeModal('ov-conf');persist();renderDirectories();
+}
+
+/* ---------- обновление ---------- */
+function render(){
+  if(activeTab==='classifiers')renderClassifiers();else renderDirectories();
+}
+function refresh(){
+  $('stats-badge').textContent='Классификаторы: '+state.classifiers.length+' · Справочники: '+state.directories.length;
+  $('cf-count').textContent=state.classifiers.length;
+  $('dir-count').textContent=state.directories.length;
+  render();
+}
+refresh();
+</script>
+</body>
+</html>
