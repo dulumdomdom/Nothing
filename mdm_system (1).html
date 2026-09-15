@@ -1,0 +1,2798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDM System — Единый 17-фасетный классификатор режущего инструмента</title>
+  
+  <!-- Modern Industrial Typography: Manrope & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --accent: #0284c7;
+      --accent-light: #e0f2fe;
+      --accent-hover: #0369a1;
+
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-sidebar: #091e42;
+      --bg-sidebar-hover: #132d5e;
+      --bg-sidebar-active: #1e3a8a;
+
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --border-color: #cbd5e1;
+      --border-focus: #2563eb;
+
+      --iso-p: #2563eb;
+      --iso-m: #ca8a04;
+      --iso-k: #dc2626;
+      --iso-n: #16a34a;
+      --iso-s: #ea580c;
+      --iso-h: #475569;
+      --iso-u: #7c3aed;
+
+      --facet-bg: #0f172a;
+      --facet-accent: #38bdf8;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.08);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Left Sidebar */
+    .app-sidebar {
+      width: 300px;
+      background: var(--bg-sidebar);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid #172b4d;
+      z-index: 30;
+    }
+
+    .sidebar-brand {
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #2563eb, #0284c7);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.72rem;
+      color: #93c5fd;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .sidebar-menu {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .menu-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #60a5fa;
+      padding: 14px 14px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: var(--radius-md);
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.18s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-sidebar-hover);
+      color: #ffffff;
+    }
+
+    .nav-item.active {
+      background: var(--bg-sidebar-active);
+      color: #93c5fd;
+      font-weight: 700;
+      box-shadow: inset 0 0 0 1px rgba(147, 197, 253, 0.25);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 4px;
+      background: #38bdf8;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2.2;
+      flex-shrink: 0;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.12);
+      color: #cbd5e1;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+    }
+
+    .nav-item.active .nav-badge {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.76rem;
+      color: #94a3b8;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .app-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg-main);
+    }
+
+    .topbar {
+      height: 64px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-title h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scheme-badge {
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      padding: 3px 8px;
+      background: #eff6ff;
+      border: 1px solid #93c5fd;
+      color: #1d4ed8;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .topbar-title .subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .view-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px 40px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 5px rgba(29, 78, 216, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(29, 78, 216, 0.35);
+    }
+
+    .btn-outline {
+      background: #fff;
+      color: var(--text-main);
+      border-color: var(--border-color);
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+
+    .facet-live-card {
+      background: #0f172a;
+      border-radius: var(--radius-xl);
+      border: 1px solid #334155;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .facet-live-header {
+      padding: 16px 24px;
+      background: linear-gradient(90deg, #1e293b, #0f172a);
+      border-bottom: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .facet-live-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      background: #38bdf8;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #38bdf8;
+      animation: livePulse 2s infinite;
+    }
+
+    @keyframes livePulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* The 17-facet strip container */
+    .facets-scroll-strip {
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .facet-chip {
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
+      min-width: 52px;
+      text-align: center;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+      position: relative;
+    }
+
+    .facet-chip:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    .facet-chip.accent {
+      background: #1e3a8a;
+      border-color: #60a5fa;
+    }
+
+    .facet-chip .fc-num {
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #94a3b8;
+      letter-spacing: 0.04em;
+    }
+
+    .facet-chip .fc-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .facet-chip .fc-lbl {
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 60px;
+      margin-top: 2px;
+    }
+
+    .facet-sep {
+      color: #475569;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      user-select: none;
+    }
+
+    /* Output string and auto short name banner */
+    .facet-summary-bar {
+      background: #020617;
+      border-top: 1px solid #1e293b;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .full-code-display {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .code-string {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #38bdf8;
+      letter-spacing: 0.06em;
+      word-break: break-all;
+    }
+
+    .short-name-box {
+      background: rgba(30, 58, 138, 0.4);
+      border: 1px solid #1e3a8a;
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #f1f5f9;
+      font-size: 0.88rem;
+    }
+
+    .short-name-box strong {
+      color: #60a5fa;
+      font-weight: 800;
+    }
+
+    .form-block-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .form-block-header {
+      padding: 16px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .block-badge-num {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .form-block-header h3 {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .form-block-header p {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .form-block-body {
+      padding: 24px;
+    }
+
+    .facet-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .facet-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+
+    .facet-field label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .facet-tag-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 800;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .facet-select, .facet-input {
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #fff;
+      color: var(--text-main);
+      font-family: inherit;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .facet-select:focus, .facet-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .facet-field-help {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dependent-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #0284c7;
+      font-weight: 700;
+      font-size: 0.68rem;
+      background: #e0f2fe;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue { background: #dbeafe; color: #1d4ed8; }
+    .stat-icon.cyan { background: #e0f2fe; color: #0284c7; }
+    .stat-icon.indigo { background: #e0e7ff; color: #4338ca; }
+    .stat-icon.emerald { background: #d1fae5; color: #059669; }
+
+    .stat-box h4 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.1;
+    }
+
+    .stat-box p {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .filter-panel {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-input-wrap {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+
+    .search-input-wrap input {
+      width: 100%;
+      padding: 9px 12px 9px 38px;
+      font-size: 0.86rem;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      font-family: inherit;
+      color: var(--text-main);
+      outline: none;
+    }
+
+    .search-input-wrap input:focus {
+      background: #fff;
+      border-color: var(--primary);
+    }
+
+    .search-input-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      width: 16px;
+      height: 16px;
+    }
+
+    .filter-dropdown {
+      padding: 9px 14px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      background: #fff;
+      color: var(--text-main);
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .table-container {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    table.data-table th {
+      background: #f8fafc;
+      padding: 14px 18px;
+      font-weight: 800;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    table.data-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .code-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1e40af;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      letter-spacing: 0.03em;
+    }
+
+    .iso-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .iso-P1 { background: var(--iso-p); }
+    .iso-M1 { background: var(--iso-m); }
+    .iso-K1 { background: var(--iso-k); }
+    .iso-N1 { background: var(--iso-n); }
+    .iso-S1 { background: var(--iso-s); }
+    .iso-H1 { background: var(--iso-h); }
+    .iso-U1 { background: var(--iso-u); }
+
+    .param-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: #334155;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+      margin-bottom: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .dict-layout-grid {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 24px;
+      min-height: calc(100vh - 160px);
+    }
+
+    .dict-nav-menu {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      height: 720px;
+    }
+
+    .dict-menu-item {
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      font-size: 0.84rem;
+    }
+
+    .dict-menu-item:hover {
+      background: #f1f5f9;
+    }
+
+    .dict-menu-item.active {
+      background: var(--primary-light);
+      border-color: var(--primary-border);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .dict-count-tag {
+      font-size: 0.72rem;
+      background: #e2e8f0;
+      color: #475569;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .dict-menu-item.active .dict-count-tag {
+      background: #bfdbfe;
+      color: #1e40af;
+    }
+
+    .dict-card-content {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Modals & Dialogs */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #fff;
+      width: 100%;
+      max-width: 640px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      transform: scale(0.96);
+      transition: transform 0.2s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-body {
+      padding: 24px;
+      max-height: 72vh;
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #f8fafc;
+    }
+
+    /* Toast Notification */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast-msg {
+      background: #0f172a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: toastIn 0.25s forwards cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes toastIn {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes toastOut {
+      to { transform: translateY(20px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- App Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>MDM System</h1>
+        <span>Инструментальное НСИ</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <div class="menu-label">Классификация инструмента</div>
+      <a class="nav-item active" onclick="switchView('wizard')" id="nav-wizard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span>Классификатор (17 фасетов)</span>
+      </a>
+      <a class="nav-item" onclick="switchView('catalog')" id="nav-catalog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>Реестр позиций НСИ</span>
+        <span class="nav-badge" id="badge-total-items">6</span>
+      </a>
+
+      <div class="menu-label">Справочники и структура</div>
+      <a class="nav-item" onclick="switchView('dictionaries')" id="nav-dictionaries">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        <span>Справочники НСИ</span>
+        <span class="nav-badge">17</span>
+      </a>
+      <a class="nav-item" onclick="switchView('spec')" id="nav-spec">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        <span>Спецификация 17 фасетов</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="display: flex; flex-direction: column; gap: 4px;">
+        <strong style="color: #f1f5f9;">ГОСТ / ISO 13399 Tool MDM</strong>
+        <span>17 фасетов равной длины (2 зн.)</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Application Workspace -->
+  <main class="app-main">
+    <header class="topbar">
+      <div class="topbar-title">
+        <h2 id="topbar-view-title">
+          Мастер классификации инструмента
+          <span class="scheme-badge">17 фасетов (по 2 знака)</span>
+        </h2>
+        <span class="subtitle" id="topbar-view-subtitle">Динамическое формирование кода, краткого наименования и привязка к производителю</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-outline btn-sm" onclick="exportDatabaseJSON()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Экспорт JSON
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="switchView('wizard')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Новая классификация
+        </button>
+      </div>
+    </header>
+
+    <div class="view-content">
+
+      <!-- VIEW 1: 17-FACET CLASSIFICATION WIZARD -->
+      <section id="view-wizard">
+        
+        <!-- Live Visual 17-Facet Generator Strip -->
+        <div class="facet-live-card">
+          <div class="facet-live-header">
+            <div class="facet-live-title">
+              <span class="pulse-dot"></span>
+              Генератор 17 фасетов (строго равная длина = 2 символа на фасет)
+            </div>
+            <button class="btn btn-sm btn-outline" style="background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2);" onclick="copyGeneratedCode()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Копировать код MDM
+            </button>
+          </div>
+
+          <!-- 17 Facet Blocks Strip -->
+          <div class="facets-scroll-strip" id="facet-strip-container">
+            <!-- Dynamically populated by updateLiveGenerator() -->
+          </div>
+
+          <!-- Assembled code & 18. Auto Short Name -->
+          <div class="facet-summary-bar">
+            <div class="full-code-display">
+              <div>
+                <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;">Итоговый шифр MDM (17 пар = 34 знака):</span>
+                <div class="code-string" id="wizard-full-code">01-01-01-P1-05-10-02-01-40-A0-40-01-01-01-M7-02-01</div>
+              </div>
+            </div>
+
+            <!-- Item 18: Generated Short Name -->
+            <div class="short-name-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#60a5fa"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+              <div>
+                <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; font-weight: 700;">18. Автоматически сформированное краткое наименование:</span>
+                <div id="wizard-short-name-preview" style="font-weight: 700; margin-top: 2px;">
+                  Сверло спиральное монолитное Ø10.0 L40/100 z=2 DIN 6535-HA 140° m7 TiAlN IC (ISO P1)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM STEP 1: Base Hierarchy & ISO Material (Facets 1-4) -->
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div class="block-badge-num">1</div>
+            <div>
+              <h3>Базовая технологическая иерархия и обрабатываемый материал</h3>
+              <p>Определяет назначение инструмента и контекст для всех последующих зависимых фасетов</p>
+            </div>
+          </div>
+          <div class="form-block-body">
+            <div class="facet-form-grid">
+              
+              <!-- Facet 1: Group -->
+              <div class="facet-field">
+                <label>
+                  1. Группа инструмента *
+                  <span class="facet-tag-code">Фасет #1 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-group" onchange="onGroupChange()">
+                  <!-- Populated dynamically -->
+                </select>
+                <span class="facet-field-help">Выбор из глобального справочника групп</span>
+              </div>
+
+              <!-- Facet 2: Subgroup (Dependent on Group) -->
+              <div class="facet-field">
+                <label>
+                  2. Подгруппа инструмента *
+                  <span class="dependent-indicator">Зависит от #1</span>
+                </label>
+                <select class="facet-select" id="f-subgroup" onchange="onSubgroupChange()">
+                  <!-- Populated dynamically based on Group -->
+                </select>
+                <span class="facet-field-help">Строго фильтруется по выбранной группе</span>
+              </div>
+
+              <!-- Facet 3: Type (Dependent on Subgroup) -->
+              <div class="facet-field">
+                <label>
+                  3. Вид инструмента *
+                  <span class="dependent-indicator">Зависит от #2</span>
+                </label>
+                <select class="facet-select" id="f-type" onchange="onTypeChange()">
+                  <!-- Populated dynamically based on Subgroup -->
+                </select>
+                <span class="facet-field-help">Конструктивное исполнение инструмента</span>
+              </div>
+
+              <!-- Facet 4: Material ISO 513 -->
+              <div class="facet-field">
+                <label>
+                  4. Обрабатываемый материал ISO 513 *
+                  <span class="facet-tag-code">Фасет #4 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-material" onchange="updateLiveGenerator()">
+                  <!-- Populated dynamically from ISO materials -->
+                </select>
+                <span class="facet-field-help">Группа свариваемости и твердости</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM STEP 2: Contextual Geometry and Dimensions (Facets 5-11) -->
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div class="block-badge-num">2</div>
+            <div>
+              <h3>Контекстные геометрические параметры (на основе Группа + Подгруппа + Вид)</h3>
+              <p>Названия полей и варианты выбора динамически адаптируются под выбранный тип инструмента</p>
+            </div>
+          </div>
+          <div class="form-block-body">
+            <div class="facet-form-grid">
+              
+              <!-- Facet 5: Contextual Type/Depth/Flute -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f5">5. Контекстный вид / Назначение конструкции</span> *
+                  <span class="dependent-indicator">Адаптивный #5</span>
+                </label>
+                <select class="facet-select" id="f-ctx-view" onchange="updateLiveGenerator()">
+                  <!-- Contextual options (e.g. 3xD/5xD/8xD for drills, spiral flute for taps, corner rad for mills) -->
+                </select>
+                <span class="facet-field-help" id="help-f5">Длина рабочей части / тип стружечной канавки</span>
+              </div>
+
+              <!-- Facet 6: Diameter D -->
+              <div class="facet-field">
+                <label>
+                  6. Рабочий диаметр режущей части D *
+                  <span class="facet-tag-code">Фасет #6 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-diameter" onchange="updateLiveGenerator()">
+                  <!-- Diameters: 02, 03, ..., 10, 12, 16, 20, 25, 32 -->
+                </select>
+                <span class="facet-field-help">Номинальный рабочий диаметр (мм)</span>
+              </div>
+
+              <!-- Facet 7: Flutes / Teeth / Thread Pitch -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f7">7. Число зубьев / перьев / Шаг резьбы</span> *
+                  <span class="dependent-indicator">Адаптивный #7</span>
+                </label>
+                <select class="facet-select" id="f-teeth-pitch" onchange="updateLiveGenerator()">
+                  <!-- Teeth for drills/mills or thread pitch for taps -->
+                </select>
+                <span class="facet-field-help" id="help-f7">Количество перьев (свёрла), шаг P (метчики), z (фрезы)</span>
+              </div>
+
+              <!-- Facet 8: Shank / Mounting Interface -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f8">8. Тип хвостовика / Посадка</span> *
+                  <span class="dependent-indicator">Адаптивный #8</span>
+                </label>
+                <select class="facet-select" id="f-shank" onchange="updateLiveGenerator()">
+                  <!-- HA, HB, HE, DIN 371/376 square, etc. -->
+                </select>
+                <span class="facet-field-help" id="help-f8">Интерфейс инструментального патрона</span>
+              </div>
+
+              <!-- Facet 9: Cutting Length l -->
+              <div class="facet-field">
+                <label>
+                  9. Длина режущей части l (мм) *
+                  <span class="facet-tag-code">Фасет #9 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-cut-len" onchange="updateLiveGenerator()">
+                  <!-- Length: 08, 12, 16, 20, 25, 32, 40, 50, 63, 80 -->
+                </select>
+                <span class="facet-field-help">Глубина резания / длина стружечной канавки</span>
+              </div>
+
+              <!-- Facet 10: Total Length L -->
+              <div class="facet-field">
+                <label>
+                  10. Общая длина инструмента L (мм) *
+                  <span class="facet-tag-code">Фасет #10 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-total-len" onchange="updateLiveGenerator()">
+                  <!-- Total length code -->
+                </select>
+                <span class="facet-field-help">Габаритная длина с хвостовиком</span>
+              </div>
+
+              <!-- Facet 11: Cutting Geometry / Angle -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f11">11. Режущая геометрия / Угол</span> *
+                  <span class="dependent-indicator">Адаптивный #11</span>
+                </label>
+                <select class="facet-select" id="f-geom-angle" onchange="updateLiveGenerator()">
+                  <!-- Point angle for drills, chamfer for taps, helix for mills -->
+                </select>
+                <span class="facet-field-help" id="help-f11">Угол при вершине, форма захода или угол наклона спирали</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM STEP 3: Operational, Machine & Coating Parameters (Facets 12-17) -->
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div class="block-badge-num">3</div>
+            <div>
+              <h3>Технологические режимы, допуски и защитные покрытия</h3>
+              <p>Определяет направление вращения, класс оборудования, подачу СОЖ, квалитет и исполнение</p>
+            </div>
+          </div>
+          <div class="form-block-body">
+            <div class="facet-form-grid">
+              
+              <!-- Facet 12: Direction -->
+              <div class="facet-field">
+                <label>
+                  12. Направление резания *
+                  <span class="facet-tag-code">Фасет #12 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-direction" onchange="updateLiveGenerator()">
+                  <option value="01">01 — Правое (RH, по часовой)</option>
+                  <option value="02">02 — Левое (LH, против часовой)</option>
+                </select>
+                <span class="facet-field-help">Направление вращения шпинделя</span>
+              </div>
+
+              <!-- Facet 13: CNC Flag -->
+              <div class="facet-field">
+                <label>
+                  13. Признак ЧПУ / оборудования *
+                  <span class="facet-tag-code">Фасет #13 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-cnc" onchange="updateLiveGenerator()">
+                  <option value="01">01 — Станки с ЧПУ (Обрабатывающие центры)</option>
+                  <option value="02">02 — Универсальное станочное оборудование</option>
+                  <option value="03">03 — Высокопроизводительные автоматы / линии</option>
+                </select>
+                <span class="facet-field-help">Класс станочного оборудования</span>
+              </div>
+
+              <!-- Facet 14: Coolant -->
+              <div class="facet-field">
+                <label>
+                  14. Признак подвода СОЖ *
+                  <span class="facet-tag-code">Фасет #14 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-coolant" onchange="updateLiveGenerator()">
+                  <option value="00">00 — Без СОЖ / Наружный полив соплом</option>
+                  <option value="01">01 — Внутренний осевой подвод (Internal Axial)</option>
+                  <option value="02">02 — Внутренний радиальный подвод (Internal Radial)</option>
+                  <option value="03">03 — Микрораспыление масляного тумана (MQL)</option>
+                </select>
+                <span class="facet-field-help">Канал охлаждения через тело инструмента</span>
+              </div>
+
+              <!-- Facet 15: Tolerance / Quality Class -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f15">15. Поле допуска / Квалитет точности</span> *
+                  <span class="dependent-indicator">Адаптивный #15</span>
+                </label>
+                <select class="facet-select" id="f-tolerance" onchange="updateLiveGenerator()">
+                  <!-- m7/h7 for drills, 6H/6G for taps, e8/h9 for mills -->
+                </select>
+                <span class="facet-field-help" id="help-f15">Поле допуска диаметра или нарезаемой резьбы</span>
+              </div>
+
+              <!-- Facet 16: Protective Coating -->
+              <div class="facet-field">
+                <label>
+                  16. Износостойкое покрытие *
+                  <span class="facet-tag-code">Фасет #16 [2 зн.]</span>
+                </label>
+                <select class="facet-select" id="f-coating" onchange="updateLiveGenerator()">
+                  <option value="00">00 — Без покрытия (Полированный субстрат)</option>
+                  <option value="01">01 — TiN (Нитрид титана золотистый)</option>
+                  <option value="02" selected>02 — TiAlN (Нитрид титана-алюминия)</option>
+                  <option value="03">03 — AlCrN (Нитрид алюминия-хрома)</option>
+                  <option value="04">04 — DLC (Алмазоподобное углеродное покрытие)</option>
+                  <option value="05">05 — TiCN (Карбонитрид титана)</option>
+                </select>
+                <span class="facet-field-help">PVD/CVD микроструктурный слой</span>
+              </div>
+
+              <!-- Facet 17: Design / Chipbreaker -->
+              <div class="facet-field">
+                <label>
+                  <span id="lbl-f17">17. Исполнение / Стружколом</span> *
+                  <span class="dependent-indicator">Адаптивный #17</span>
+                </label>
+                <select class="facet-select" id="f-execution" onchange="updateLiveGenerator()">
+                  <!-- Adapted based on group -->
+                </select>
+                <span class="facet-field-help" id="help-f17">Форма канавки, стружкоделитель или профиль</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM STEP 4: Identification & Manufacturer (Items 18, 19, 20) -->
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div class="block-badge-num">4</div>
+            <div>
+              <h3>Итоговые атрибуты номенклатурной карточки (Пункты 18, 19, 20)</h3>
+              <p>Краткое наименование формируется автоматически. Каталожный номер и производитель завершают карточку</p>
+            </div>
+          </div>
+          <div class="form-block-body">
+            <div class="facet-form-grid">
+              
+              <!-- Item 18: Auto Short Name -->
+              <div class="facet-field" style="grid-column: 1 / -1;">
+                <label>
+                  18. Краткое наименование (Генерируется автоматически на основе фасетов 1..17)
+                  <span class="facet-tag-code" style="color: #059669; background: #ecfdf5; border-color: #a7f3d0;">АВТО-РАСЧЁТ #18</span>
+                </label>
+                <input type="text" class="facet-input" id="item-short-name" readonly style="background: #f8fafc; font-weight: 700; color: #1e40af;">
+                <span class="facet-field-help">Формируется в реальном времени по правилам нормализации для ERP и чертежей</span>
+              </div>
+
+              <!-- Item 19: Manual Catalog SKU -->
+              <div class="facet-field">
+                <label>
+                  19. Каталожное обозначение (Артикул производителя) *
+                  <span class="facet-tag-code" style="color: #d97706; background: #fffbeb; border-color: #fde68a;">РУЧНОЙ ВВОД #19</span>
+                </label>
+                <input type="text" class="facet-input" id="item-catalog-sku" placeholder="Например: R840-1000-30-A1A или 460.1-1000-045A1" required style="font-family: 'JetBrains Mono', monospace;">
+                <span class="facet-field-help">Оригинальный артикул или шифр заказа по каталогу бренда</span>
+              </div>
+
+              <!-- Item 20: Manufacturer -->
+              <div class="facet-field">
+                <label>
+                  20. Производитель инструмента *
+                  <span class="facet-tag-code" style="color: #2563eb; background: #eff6ff; border-color: #bfdbfe;">СПРАВОЧНИК #20</span>
+                </label>
+                <select class="facet-select" id="item-manufacturer">
+                  <!-- Populated from manufacturers dictionary -->
+                </select>
+                <span class="facet-field-help">Завод-изготовитель или бренд инструментального холдинга</span>
+              </div>
+
+            </div>
+
+            <!-- Submit buttons -->
+            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 14px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+              <button class="btn btn-outline" onclick="resetWizardToDefaults()">
+                Сбросить форму к образцу
+              </button>
+              <button class="btn btn-primary" onclick="saveToolItemToRegistry()" style="padding: 12px 28px; font-size: 0.95rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                Записать позицию в Реестр НСИ
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- VIEW 2: REGISTRY CATALOG -->
+      <section id="view-catalog" style="display: none;">
+        
+        <!-- Summary Stats -->
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="stat-icon blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            </div>
+            <div>
+              <h4 id="stat-total-tools">6</h4>
+              <p>Позиций в Реестре MDM</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon cyan">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <div>
+              <h4 id="stat-drills-tools">2</h4>
+              <p>Свёрла (Группа 01)</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon indigo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+            </div>
+            <div>
+              <h4 id="stat-taps-tools">2</h4>
+              <p>Метчики (Группа 02)</p>
+            </div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon emerald">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div>
+              <h4 id="stat-mills-tools">2</h4>
+              <p>Фрезы (Группа 03)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter panel -->
+        <div class="filter-panel">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="catalog-search" placeholder="Поиск по коду 17 фасетов, наименованию, артикулу или бренду..." oninput="applyCatalogFilters()">
+          </div>
+
+          <select class="filter-dropdown" id="filter-group" onchange="applyCatalogFilters()">
+            <option value="">Все группы инструмента</option>
+            <option value="01">01 — Осевой / Свёрла</option>
+            <option value="02">02 — Резьбообразующий / Метчики</option>
+            <option value="03">03 — Фрезерный / Фрезы</option>
+          </select>
+
+          <select class="filter-dropdown" id="filter-material" onchange="applyCatalogFilters()">
+            <option value="">Все материалы ISO 513</option>
+            <option value="P1">P1 — Стали</option>
+            <option value="M1">M1 — Нержавеющие стали</option>
+            <option value="K1">K1 — Чугуны</option>
+            <option value="N1">N1 — Алюминий</option>
+            <option value="S1">S1 — Жаропрочные / Титан</option>
+            <option value="H1">H1 — Закаленные стали</option>
+          </select>
+
+          <select class="filter-dropdown" id="filter-manufacturer" onchange="applyCatalogFilters()">
+            <option value="">Все производители (20)</option>
+            <!-- Injected by JS -->
+          </select>
+
+          <button class="btn btn-outline btn-sm" onclick="resetCatalogFilters()">Сброс</button>
+        </div>
+
+        <!-- Registry Table -->
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Код MDM (17 фасетов)</th>
+                <th>18. Краткое наименование / 19. Каталожное обозначение</th>
+                <th>20. Производитель</th>
+                <th>ISO 513</th>
+                <th>Параметры</th>
+                <th style="text-align: right;">Действия</th>
+              </tr>
+            </thead>
+            <tbody id="catalog-table-body">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- VIEW 3: DICTIONARIES MANAGEMENT -->
+      <section id="view-dictionaries" style="display: none;">
+        <div class="dict-layout-grid">
+          
+          <!-- Left: Essential Dictionaries List -->
+          <div class="dict-nav-menu" id="dict-tabs-list">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Right: Dictionary Items Content -->
+          <div class="dict-card-content">
+            <div style="padding: 18px 24px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 1.05rem; font-weight: 800;" id="dict-detail-title">Справочник: Группы инструмента</h3>
+                <span style="font-size: 0.78rem; color: var(--text-muted);" id="dict-detail-desc">Классификатор верхнего уровня (Фасет #1)</span>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openAddDictElementModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Добавить элемент
+              </button>
+            </div>
+
+            <div style="flex: 1; overflow-y: auto;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 110px;">Код (2 зн.)</th>
+                    <th>Значение / Наименование</th>
+                    <th>Контекстная привязка / Описание</th>
+                    <th style="text-align: right; width: 90px;">Действие</th>
+                  </tr>
+                </thead>
+                <tbody id="dict-elements-tbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- VIEW 4: 17-FACET SCHEMA SPECIFICATION -->
+      <section id="view-spec" style="display: none;">
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div>
+              <h3>Паспорт архитектуры классификатора: 17 фасетов равной длины</h3>
+              <p>Каждый сегмент строго равен 2 буквенно-цифровым знакам. Адаптивные фасеты меняют смысл в зависимости от связки Группа + Подгруппа + Вид</p>
+            </div>
+          </div>
+          <div class="table-container" style="border: none; border-radius: 0;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 60px;">Поз.</th>
+                  <th style="width: 80px;">Длина</th>
+                  <th>Наименование фасета</th>
+                  <th>Тип поля и зависимости</th>
+                  <th>Свёрла (Группа 01)</th>
+                  <th>Метчики (Группа 02)</th>
+                  <th>Фрезы (Группа 03)</th>
+                </tr>
+              </thead>
+              <tbody id="spec-matrix-tbody">
+                <!-- Generated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 18, 19, 20 Specification -->
+        <div class="form-block-card">
+          <div class="form-block-header">
+            <div>
+              <h3>Дополнительные атрибуты номенклатурной карточки (18, 19, 20)</h3>
+              <p>Окончательная нормализация для складского учета, конструкторской и технологической документации</p>
+            </div>
+          </div>
+          <div style="padding: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+              <div style="background: #f8fafc; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); padding: 16px;">
+                <span class="facet-tag-code" style="color: #059669; background: #ecfdf5; border-color: #a7f3d0;">Атрибут #18</span>
+                <h4 style="font-size: 0.95rem; margin: 8px 0 4px; font-weight: 800;">Краткое наименование</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">Вычисляется системой автоматически при каждом изменении любого из 17 фасетов. Формирует читаемое технологическое имя без необходимости ручного ввода.</p>
+              </div>
+
+              <div style="background: #f8fafc; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); padding: 16px;">
+                <span class="facet-tag-code" style="color: #d97706; background: #fffbeb; border-color: #fde68a;">Атрибут #19</span>
+                <h4 style="font-size: 0.95rem; margin: 8px 0 4px; font-weight: 800;">Каталожное обозначение</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">Вводится технологом или снабженцем вручную. Содержит точный заводской артикул изготовителя для оформления заказов и ведомостей покупных изделий.</p>
+              </div>
+
+              <div style="background: #f8fafc; border: 1.5px solid var(--border-color); border-radius: var(--radius-md); padding: 16px;">
+                <span class="facet-tag-code" style="color: #2563eb; background: #eff6ff; border-color: #bfdbfe;">Атрибут #20</span>
+                <h4 style="font-size: 0.95rem; margin: 8px 0 4px; font-weight: 800;">Производитель инструмента</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">Выбирается строго из справочника верифицированных брендов и инструментальных заводов (Sandvik, Guhring, Walter, Iscar, СКИФ-М, YG-1, Kennametal и др.).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL: Full Tool Item Passport -->
+  <div class="modal-overlay" id="modal-tool-inspector">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="inspector-title">Технологический паспорт позиции MDM</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('modal-tool-inspector')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="inspector-body">
+        <!-- Injected dynamic content -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal('modal-tool-inspector')">Закрыть</button>
+        <button class="btn btn-primary" onclick="copyInspectorJson()">Копировать JSON</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Add Element to Dictionary -->
+  <div class="modal-overlay" id="modal-add-dict">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-dict-title">Новый элемент справочника</h3>
+        <button class="btn btn-outline btn-sm" onclick="closeModal('modal-add-dict')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-dict-element" onsubmit="submitNewDictItem(event)">
+          <div class="facet-field" style="margin-bottom: 16px;">
+            <label>Код элемента (СТРОГО 2 символа) *</label>
+            <input type="text" id="modal-item-code" class="facet-input" maxlength="2" placeholder="Напр. 04 или H2" required style="font-family: 'JetBrains Mono', monospace; text-transform: uppercase;">
+            <span class="facet-field-help">Ровно 2 буквенно-цифровых знака для соблюдения стандарта классификатора</span>
+          </div>
+          <div class="facet-field" style="margin-bottom: 16px;">
+            <label>Наименование / значение *</label>
+            <input type="text" id="modal-item-name" class="facet-input" placeholder="Например: Свёрла пушечные глубокого сверления" required>
+          </div>
+          <div class="facet-field" id="modal-parent-wrap" style="margin-bottom: 16px; display: none;">
+            <label>Родительская привязка *</label>
+            <select id="modal-item-parent" class="facet-select">
+              <!-- Parent values -->
+            </select>
+          </div>
+          <div class="facet-field" style="margin-bottom: 20px;">
+            <label>Технологическое примечание / ГОСТ / DIN</label>
+            <input type="text" id="modal-item-desc" class="facet-input" placeholder="Параметры применения">
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn btn-outline" onclick="closeModal('modal-add-dict')">Отмена</button>
+            <button type="submit" class="btn btn-primary">Сохранить в НСИ</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-box" id="toast-container"></div>
+
+  <script>
+    /* Master Data Management Engine - Offline Single Classifier (17 Facets) */
+
+    const MDM = {
+      currentView: 'wizard',
+      selectedDictKey: 'groups',
+      activeInspectedItem: null,
+
+      // 17 Dictionaries necessary for the classifier + Manufacturer
+      dictionaries: {
+        groups: {
+          title: "1. Группы инструмента",
+          desc: "Фасет #1: Классификатор 1-го уровня (2 символа)",
+          items: [
+            { code: "01", name: "Осевой инструмент для отверстий (Свёрла)", desc: "Сверление, центрование, зенкерование" },
+            { code: "02", name: "Резьбообразующий инструмент (Метчики)", desc: "Нарезание метрических и трубных резьб" },
+            { code: "03", name: "Фрезерный инструмент (Фрезы)", desc: "Концевое, торцевое, 3D фрезерование" }
+          ]
+        },
+        subgroups: {
+          title: "2. Подгруппы инструмента",
+          desc: "Фасет #2: Зависит от Группы (2 символа)",
+          items: [
+            // Subgroups for Drills (01)
+            { code: "01", name: "Свёрла спиральные монолитные", parent: "01", desc: "Цельный твёрдый сплав (VHM)" },
+            { code: "02", name: "Свёрла со сменными пластинами СМП", parent: "01", desc: "Корпусные свёрла под пластины" },
+            { code: "03", name: "Свёрла центровочные", parent: "01", desc: "ГОСТ 14952-75 / DIN 333" },
+            // Subgroups for Taps (02)
+            { code: "01", name: "Метчики машинно-ручные прямые", parent: "02", desc: "Для сквозных отверстий" },
+            { code: "02", name: "Метчики со спиральной канавкой", parent: "02", desc: "Для глухих отверстий с выводом стружки" },
+            { code: "03", name: "Раскатники бесстружечные", parent: "02", desc: "Бесканавочное пластическое формообразование" },
+            // Subgroups for Mills (03)
+            { code: "01", name: "Фрезы концевые цилиндрические", parent: "03", desc: "Монолитные цилиндрические концевые фрезы" },
+            { code: "02", name: "Фрезы сферические радиусные (Ball Nose)", parent: "03", desc: "Для 3D штампов и пресс-форм" },
+            { code: "03", name: "Фрезы торцевые насадные", parent: "03", desc: "Обработка плоскостей под оправку DIN 2080" }
+          ]
+        },
+        types: {
+          title: "3. Виды инструмента",
+          desc: "Фасет #3: Зависит от Подгруппы (2 символа)",
+          items: [
+            // For 01-01 (Monolithic drills)
+            { code: "01", name: "Сверло спиральное стандартное", parent: "01-01", desc: "Стандартная цилиндрическая спираль" },
+            { code: "02", name: "Сверло ступенчатое фасочное", parent: "01-01", desc: "Одновременное сверление и фаска" },
+            { code: "03", name: "Сверло микродиаметров", parent: "01-01", desc: "Прецизионные малые диаметры" },
+            // For 01-02 (Indexable drills)
+            { code: "01", name: "Сверло 3xD под пластины", parent: "01-02", desc: "Корпусное с пластинами WCMX/SPMX" },
+            { code: "02", name: "Сверло 5xD под пластины", parent: "01-02", desc: "Глубокое корпусное сверление" },
+            // For 01-03 (Centering drills)
+            { code: "01", name: "Центровочное тип А (60°)", parent: "01-03", desc: "Без предохранительного конуса" },
+            { code: "02", name: "Центровочное тип R (радиусное)", parent: "01-03", desc: "С криволинейной образующей" },
+            // For 02-01 (Straight taps)
+            { code: "01", name: "Для сквозных отверстий DIN 371", parent: "02-01", desc: "Усиленный хвостовик" },
+            { code: "02", name: "Для сквозных отверстий DIN 376", parent: "02-01", desc: "Проходной хвостовик" },
+            // For 02-02 (Spiral taps)
+            { code: "01", name: "Спираль 35° для глухих отверстий", parent: "02-02", desc: "Отвод стружки назад" },
+            { code: "02", name: "Спираль 45° для глубоких глухих отверстий", parent: "02-02", desc: "Крутая спираль" },
+            // For 02-03 (Roll taps)
+            { code: "01", name: "Раскатник со смазочными канавками", parent: "02-03", desc: "С подачей смазки" },
+            { code: "02", name: "Раскатник монолитный гладкий", parent: "02-03", desc: "Без канавок" },
+            // For 03-01 (Endmills)
+            { code: "01", name: "Фреза концевая плоский торец", parent: "03-01", desc: "Угол 90 градусов" },
+            { code: "02", name: "Фреза концевая угловой радиус (Toroid)", parent: "03-01", desc: "Скругление угла кромки" },
+            { code: "03", name: "Фреза черновая обдирочная (Roughing)", parent: "03-01", desc: "Стружколомный синусоидальный профиль" },
+            // For 03-02 (Ball nose)
+            { code: "01", name: "Сферическая 2-зубая", parent: "03-02", desc: "Для черновой и чистовой 3D обработки" },
+            { code: "02", name: "Сферическая многозубая", parent: "03-02", desc: "Для закаленных сталей" },
+            // For 03-03 (Face mills)
+            { code: "01", name: "Торцевая 45° под пластины", parent: "03-03", desc: "Главный угол в плане 45°" },
+            { code: "02", name: "Торцевая 90° уступная", parent: "03-03", desc: "Прямоугольный уступ" }
+          ]
+        },
+        materials: {
+          title: "4. Материалы по ISO 513",
+          desc: "Фасет #4: Международная группа обрабатываемости (2 символа)",
+          items: [
+            { code: "P1", name: "ISO P — Углеродистые и легированные стали", desc: "Синяя цветовая маркировка" },
+            { code: "M1", name: "ISO M — Нержавеющие стали", desc: "Желтая цветовая маркировка" },
+            { code: "K1", name: "ISO K — Серые и ковкие чугуны", desc: "Красная цветовая маркировка" },
+            { code: "N1", name: "ISO N — Цветные металлы и алюминиевые сплавы", desc: "Зеленая цветовая маркировка" },
+            { code: "S1", name: "ISO S — Жаропрочные сплавы и титан", desc: "Оранжевая цветовая маркировка" },
+            { code: "H1", name: "ISO H — Закаленные стали высокой твердости (>45 HRC)", desc: "Серая цветовая маркировка" },
+            { code: "U1", name: "ISO Uni — Универсальное применение", desc: "Фиолетовая цветовая маркировка" }
+          ]
+        },
+        diameters: {
+          title: "6. Диаметры режущей части (мм)",
+          desc: "Фасет #6: Номинал диаметра D (2 символа)",
+          items: [
+            { code: "02", name: "Ø 2.0 мм", val: 2.0 },
+            { code: "03", name: "Ø 3.0 мм", val: 3.0 },
+            { code: "04", name: "Ø 4.0 мм", val: 4.0 },
+            { code: "05", name: "Ø 5.0 мм", val: 5.0 },
+            { code: "06", name: "Ø 6.0 мм", val: 6.0 },
+            { code: "08", name: "Ø 8.0 мм", val: 8.0 },
+            { code: "10", name: "Ø 10.0 мм", val: 10.0 },
+            { code: "12", name: "Ø 12.0 мм", val: 12.0 },
+            { code: "14", name: "Ø 14.0 мм", val: 14.0 },
+            { code: "16", name: "Ø 16.0 мм", val: 16.0 },
+            { code: "20", name: "Ø 20.0 мм", val: 20.0 },
+            { code: "25", name: "Ø 25.0 мм", val: 25.0 },
+            { code: "32", name: "Ø 32.0 мм", val: 32.0 }
+          ]
+        },
+        cut_lengths: {
+          title: "9. Длина режущей части l (мм)",
+          desc: "Фасет #9: Рабочая длина канавки (2 символа)",
+          items: [
+            { code: "08", name: "8 мм", val: 8 },
+            { code: "12", name: "12 мм", val: 12 },
+            { code: "16", name: "16 мм", val: 16 },
+            { code: "20", name: "20 мм", val: 20 },
+            { code: "25", name: "25 мм", val: 25 },
+            { code: "32", name: "32 мм", val: 32 },
+            { code: "40", name: "40 мм", val: 40 },
+            { code: "50", name: "50 мм", val: 50 },
+            { code: "63", name: "63 мм", val: 63 },
+            { code: "80", name: "80 мм", val: 80 }
+          ]
+        },
+        total_lengths: {
+          title: "10. Общая длина инструмента L (мм)",
+          desc: "Фасет #10: Габаритная длина L (2 символа)",
+          items: [
+            { code: "45", name: "45 мм", val: 45 },
+            { code: "57", name: "57 мм", val: 57 },
+            { code: "75", name: "75 мм", val: 75 },
+            { code: "A0", name: "100 мм", val: 100 },
+            { code: "A2", name: "125 мм", val: 125 },
+            { code: "A5", name: "150 мм", val: 150 },
+            { code: "B0", name: "200 мм", val: 200 }
+          ]
+        },
+        manufacturers: {
+          title: "20. Справочник производителей",
+          desc: "Атрибут #20: Верифицированные инструментальные заводы и бренды",
+          items: [
+            { code: "01", name: "Sandvik Coromant", desc: "Швеция, премиум инструмент" },
+            { code: "02", name: "Guhring", desc: "Германия, осевой инструмент" },
+            { code: "03", name: "Walter Titex / Prototyp", desc: "Германия, свёрла и метчики" },
+            { code: "04", name: "Iscar", desc: "Израиль / IMC Group" },
+            { code: "05", name: "СКИФ-М", desc: "Россия, твердосплавный фрезерный инструмент" },
+            { code: "06", name: "YG-1", desc: "Южная Корея, монолитный инструмент" },
+            { code: "07", name: "Kennametal", desc: "США, промышленный инструмент" },
+            { code: "08", name: "Seco Tools", desc: "Швеция, комплексные решения" }
+          ]
+        }
+      },
+
+      // Pre-populated registry catalog items (realistic production tools)
+      items: [
+        {
+          id: "MDM-REC-001",
+          code: "01-01-01-P1-05-10-02-01-40-A0-40-01-01-01-M7-02-01",
+          shortName: "Сверло спиральное монолитное Ø10.0 L40/100 z=2 DIN 6535-HA 140° m7 TiAlN IC (ISO P1)",
+          catalogSku: "R840-1000-30-A1A",
+          manufacturer: "Sandvik Coromant",
+          group: "01",
+          subgroup: "01",
+          type: "01",
+          material: "P1",
+          specs: "Ø10.0 мм, глубина 5xD, z=2, хвостовик HA, угол 140°, внутренний СОЖ, допуск m7",
+          timestamp: "2026-03-12 10:30"
+        },
+        {
+          id: "MDM-REC-002",
+          code: "02-02-01-M1-03-08-12-01-20-75-0C-01-01-00-6H-05-01",
+          shortName: "Метчик спиральный глухой М8х1.25 L20/75 DIN 371 форма C 6H TiCN (ISO M1)",
+          catalogSku: "G-420-M8-6H",
+          manufacturer: "Guhring",
+          group: "02",
+          subgroup: "02",
+          type: "01",
+          material: "M1",
+          specs: "М8х1.25, спираль 40°, DIN 371 с квадратом, форма захода C, поле 6H, TiCN",
+          timestamp: "2026-03-12 11:45"
+        },
+        {
+          id: "MDM-REC-003",
+          code: "03-01-01-P1-01-12-04-02-32-75-38-01-01-02-E8-03-01",
+          shortName: "Фреза концевая цилиндрическая Ø12.0 L32/75 z=4 Weldon HB 38° e8 AlCrN IC (ISO P1)",
+          catalogSku: "MC326-12.0A4B-WK40TF",
+          manufacturer: "Walter Titex / Prototyp",
+          group: "03",
+          subgroup: "01",
+          type: "01",
+          material: "P1",
+          specs: "Ø12.0 мм, плоский торец 90°, z=4, хвостовик Weldon HB, спираль 38°, радиальный СОЖ",
+          timestamp: "2026-03-13 09:15"
+        },
+        {
+          id: "MDM-REC-004",
+          code: "03-02-01-H1-03-06-02-01-16-57-30-01-01-00-H6-02-01",
+          shortName: "Фреза сферическая радиусная Ball Nose R3 (Ø6.0) L16/57 z=2 HA 30° h6 TiAlN (ISO H1)",
+          catalogSku: "EB060-06-12C06H57",
+          manufacturer: "Iscar",
+          group: "03",
+          subgroup: "02",
+          type: "01",
+          material: "H1",
+          specs: "Ø6.0 мм (R3), полная сфера, z=2, гладкий цилиндрический хвостовик HA, для закаленных сталей",
+          timestamp: "2026-03-13 14:20"
+        },
+        {
+          id: "MDM-REC-005",
+          code: "01-02-01-K1-03-25-02-02-63-A5-80-01-01-01-H9-02-02",
+          shortName: "Сверло корпусное СМП Ø25.0 L63/150 3xD Weldon HB 180° h9 TiAlN IC (ISO K1)",
+          catalogSku: "СКИФ-СД-25-3D-W32",
+          manufacturer: "СКИФ-М",
+          group: "01",
+          subgroup: "02",
+          type: "01",
+          material: "K1",
+          specs: "Ø25.0 мм, под сменные пластины, 3xD, плоское дно 180°, усиленный хвостовик Weldon",
+          timestamp: "2026-03-14 16:10"
+        },
+        {
+          id: "MDM-REC-006",
+          code: "02-01-01-P1-01-12-17-02-25-A0-0B-01-02-00-6H-01-01",
+          shortName: "Метчик прямой сквозной М12х1.75 L25/100 DIN 376 форма B 6H TiN (ISO P1)",
+          catalogSku: "YG-T280-M12",
+          manufacturer: "YG-1",
+          group: "02",
+          subgroup: "01",
+          type: "01",
+          material: "P1",
+          specs: "М12х1.75, прямая канавка, DIN 376 проходной хвостовик, форма захода B, универсальный",
+          timestamp: "2026-03-15 11:00"
+        }
+      ]
+    };
+
+    // Context dictionary sets based on Group (01=Drills, 02=Taps, 03=Mills)
+    const CONTEXT_OPTIONS = {
+      // 01: Drills
+      "01": {
+        f5: {
+          label: "5. Глубина сверления (относительно D)",
+          help: "Рабочая глубина сверления отверстия",
+          items: [
+            { code: "03", name: "03 — Сверление до 3xD (Короткая серия)" },
+            { code: "05", name: "05 — Сверление до 5xD (Средняя серия)" },
+            { code: "08", name: "08 — Сверление до 8xD (Длинная серия)" },
+            { code: "12", name: "12 — Сверление до 12xD (Сверхглубокая серия)" }
+          ]
+        },
+        f7: {
+          label: "7. Количество режущих перьев (z)",
+          help: "Число рабочих режущих кромок сверла",
+          items: [
+            { code: "02", name: "02 — Двухпёрое сверло (z=2, стандарт)" },
+            { code: "03", name: "03 — Трёхпёрое сверло (z=3, прецизионное)" },
+            { code: "04", name: "04 — Четырёхпёрое (z=4, ступенчатое / зенкер)" }
+          ]
+        },
+        f8: {
+          label: "8. Тип хвостовика сверла",
+          help: "Интерфейс инструментального крепления",
+          items: [
+            { code: "01", name: "01 — Цилиндрический гладкий DIN 6535-HA" },
+            { code: "02", name: "02 — Цилиндрический с лыской Weldon DIN 6535-HB" },
+            { code: "03", name: "03 — Наклонная лыска Whistle Notch DIN 6535-HE" },
+            { code: "04", name: "04 — Конус Морзе DIN 228-B" }
+          ]
+        },
+        f11: {
+          label: "11. Угол при вершине сверла",
+          help: "Геометрия заточки режущей вершины",
+          items: [
+            { code: "18", name: "18 — Угол при вершине 118° (Универсальный)" },
+            { code: "35", name: "35 — Угол при вершине 135° (Самоцентрирующийся)" },
+            { code: "40", name: "40 — Угол при вершине 140° (Для твердых сталей)" },
+            { code: "80", name: "80 — Плоское дно 180° (Сверление глухих уступов)" }
+          ]
+        },
+        f15: {
+          label: "15. Квалитет допуска диаметра сверла",
+          help: "Точность изготовления рабочего диаметра",
+          items: [
+            { code: "M7", name: "M7 — Квалитет m7 (Высокая точность отверстий)" },
+            { code: "H7", name: "H7 — Квалитет h7 (Прецизионные монолитные свёрла)" },
+            { code: "H8", name: "H8 — Квалитет h8 (Стандартная точность)" },
+            { code: "H9", name: "H9 — Квалитет h9 (Корпусные свёрла со СМП)" }
+          ]
+        },
+        f17: {
+          label: "17. Исполнение стружечных канавок",
+          help: "Особенности профиля канавки и полировки",
+          items: [
+            { code: "01", name: "01 — Стандартная спиральная полированная канавка" },
+            { code: "02", name: "02 — Канавка с микростружколомом (дробитель стружки)" },
+            { code: "03", name: "03 — Усиленный сердечник для глубокого сверления" }
+          ]
+        }
+      },
+
+      // 02: Taps
+      "02": {
+        f5: {
+          label: "5. Тип стружечных канавок метчика",
+          help: "Форма канавки для направления стружки",
+          items: [
+            { code: "01", name: "01 — Прямая стружечная канавка (Сквозные)" },
+            { code: "02", name: "02 — Правая винтовая спираль 15° (Глухие)" },
+            { code: "03", name: "03 — Правая крутая спираль 40° (Глухие глубокие)" },
+            { code: "04", name: "04 — Бесканавочный профиль (Раскатники)" }
+          ]
+        },
+        f7: {
+          label: "7. Шаг нарезаемой резьбы P (мм)",
+          help: "Стандартный шаг метрической резьбы",
+          items: [
+            { code: "05", name: "05 — Шаг P = 0.5 мм (Метрическая М3)" },
+            { code: "07", name: "07 — Шаг P = 0.7 мм (Метрическая М4)" },
+            { code: "08", name: "08 — Шаг P = 0.8 мм (Метрическая М5)" },
+            { code: "10", name: "10 — Шаг P = 1.0 мм (Метрическая М6)" },
+            { code: "12", name: "12 — Шаг P = 1.25 мм (Метрическая М8)" },
+            { code: "15", name: "15 — Шаг P = 1.5 мм (Метрическая М10)" },
+            { code: "17", name: "17 — Шаг P = 1.75 мм (Метрическая М12)" },
+            { code: "20", name: "20 — Шаг P = 2.0 мм (Метрическая М16)" }
+          ]
+        },
+        f8: {
+          label: "8. Стандарт хвостовика метчика",
+          help: "Интерфейс хвостовика с квадратом под патрон",
+          items: [
+            { code: "01", name: "01 — DIN 371 (Утолщенный хвостовик с квадратом)" },
+            { code: "02", name: "02 — DIN 376 (Проходной тонкий хвостовик)" },
+            { code: "03", name: "03 — ISO 529 (Универсальный стандарт)" }
+          ]
+        },
+        f11: {
+          label: "11. Форма заборной части метчика",
+          help: "Длина заборного конуса резьбы",
+          items: [
+            { code: "0B", name: "0B — Форма B (4-5 ниток, со спиральной подточкой)" },
+            { code: "0C", name: "0C — Форма C (2-3 нитки, универсальная)" },
+            { code: "0E", name: "0E — Форма E (1.5-2 нитки, для упора в дно)" }
+          ]
+        },
+        f15: {
+          label: "15. Поле допуска резьбы",
+          help: "Класс точности изготавливаемой резьбы",
+          items: [
+            { code: "6H", name: "6H — Поле допуска 6H (Стандартная посадка)" },
+            { code: "6G", name: "6G — Поле допуска 6G (Под гальванические покрытия)" },
+            { code: "2B", name: "2B — Класс 2B (Стандарт ANSI/ASME)" },
+            { code: "7H", name: "7H — Поле допуска 7H (Свободная посадка)" }
+          ]
+        },
+        f17: {
+          label: "17. Исполнение рельефа резьбы",
+          help: "Конструктивные каналы смазки",
+          items: [
+            { code: "01", name: "01 — Стандартный полный профиль резьбы" },
+            { code: "02", name: "02 — Шахматное расположение зубьев (занижение трения)" },
+            { code: "03", name: "03 — Радиальные каналы для смазочной пасты" }
+          ]
+        }
+      },
+
+      // 03: Mills
+      "03": {
+        f5: {
+          label: "5. Геометрия торца / Конструкция фрезы",
+          help: "Конструктивная форма режущего торца",
+          items: [
+            { code: "01", name: "01 — Плоский торец 90° (Острый угол без радиуса)" },
+            { code: "02", name: "02 — С фаской на торце 45° (Chamfered)" },
+            { code: "03", name: "03 — Сферический радиусный торец (Ball Nose)" },
+            { code: "04", name: "04 — Тороидальный радиусный угол R0.5..R2.0" }
+          ]
+        },
+        f7: {
+          label: "7. Число режущих зубьев (z)",
+          help: "Количество главных режущих зубьев фрезы",
+          items: [
+            { code: "01", name: "01 — z=1 (Однозубая для пластиков и композитов)" },
+            { code: "02", name: "02 — z=2 (Двухзубая фреза для алюминия)" },
+            { code: "03", name: "03 — z=3 (Трёхзубая универсальная)" },
+            { code: "04", name: "04 — z=4 (Четырёхзубая для обработки сталей)" },
+            { code: "05", name: "05 — z=5 (Пятизубая для трохоидального фрезерования)" },
+            { code: "06", name: "06 — z=6 (Шестизубая чистовая высокоскоростная)" }
+          ]
+        },
+        f8: {
+          label: "8. Тип хвостовика / Посадка фрезы",
+          help: "Интерфейс крепления во фрезерный патрон",
+          items: [
+            { code: "01", name: "01 — Гладкий цилиндрический DIN 6535-HA" },
+            { code: "02", name: "02 — С лыской Weldon DIN 6535-HB" },
+            { code: "03", name: "03 — Насадное посадочное отверстие (DIN 2080 / ISO)" },
+            { code: "04", name: "04 — Интегральный полый конус HSK-A63" }
+          ]
+        },
+        f11: {
+          label: "11. Угол наклона винтовой спирали",
+          help: "Угол спирали стружечных канавок",
+          items: [
+            { code: "30", name: "30 — Угол наклона 30° (Стандартный общий)" },
+            { code: "38", name: "38 — Переменный угол 35°/38° (Антивибрационный)" },
+            { code: "45", name: "45 — Угол наклона 45° (Чистовая обработка нержавеющей стали)" },
+            { code: "50", name: "50 — Угол наклона 50° (Высокоскоростной для цветных металлов)" }
+          ]
+        },
+        f15: {
+          label: "15. Квалитет поля допуска диаметра фрезы",
+          help: "Точность наружного режущего диаметра",
+          items: [
+            { code: "E8", name: "E8 — Квалитет e8 (Стандартный технологический минус)" },
+            { code: "H9", name: "H9 — Квалитет h9 (Широкий фрезерный допуск)" },
+            { code: "H6", name: "H6 — Квалитет h6 (Прецизионная высокоточная шлифовка)" }
+          ]
+        },
+        f17: {
+          label: "17. Исполнение профиля кромки / стружколом",
+          help: "Тип режущей кромки фрезы",
+          items: [
+            { code: "01", name: "01 — Гладкая чистовая режущая кромка" },
+            { code: "02", name: "02 — Стружкоделительные канавки (Chipbreaker)" },
+            { code: "03", name: "03 — Черновой синусоидальный профиль (Roughing 'кукуруза')" }
+          ]
+        }
+      }
+    };
+
+    function switchView(viewName) {
+      MDM.currentView = viewName;
+
+      // Toggle active classes on nav
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      const navItem = document.getElementById(`nav-${viewName}`);
+      if (navItem) navItem.classList.add('active');
+
+      // Hide all view containers
+      document.getElementById('view-wizard').style.display = 'none';
+      document.getElementById('view-catalog').style.display = 'none';
+      document.getElementById('view-dictionaries').style.display = 'none';
+      document.getElementById('view-spec').style.display = 'none';
+
+      // Update Topbar
+      const topTitle = document.getElementById('topbar-view-title');
+      const topSub = document.getElementById('topbar-view-subtitle');
+
+      if (viewName === 'wizard') {
+        document.getElementById('view-wizard').style.display = 'block';
+        topTitle.innerHTML = `Мастер классификации инструмента <span class="scheme-badge">17 фасетов (по 2 знака)</span>`;
+        topSub.textContent = 'Динамическое формирование кода, краткого наименования и привязка к производителю';
+        updateLiveGenerator();
+      } else if (viewName === 'catalog') {
+        document.getElementById('view-catalog').style.display = 'block';
+        topTitle.innerHTML = `Реестр инструментальной номенклатуры <span class="scheme-badge">База НСИ</span>`;
+        topSub.textContent = 'Верифицированные паспорта позиций с расшифровкой всех 17 фасетов';
+        renderCatalog();
+      } else if (viewName === 'dictionaries') {
+        document.getElementById('view-dictionaries').style.display = 'block';
+        topTitle.innerHTML = `Справочники классификатора <span class="scheme-badge">НСИ</span>`;
+        topSub.textContent = 'Управление нормативно-справочными значениями (строго 2 знака на код)';
+        renderDictionariesTabs();
+        renderActiveDictionary();
+      } else if (viewName === 'spec') {
+        document.getElementById('view-spec').style.display = 'block';
+        topTitle.innerHTML = `Архитектура классификатора <span class="scheme-badge">Спецификация</span>`;
+        topSub.textContent = 'Строгая 17-фасетная структура равной длины и правила вычисления атрибутов 18-20';
+        renderSpecificationMatrix();
+      }
+    }
+
+    function initializeWizardDropdowns() {
+      // 1. Populate Groups
+      const grpSelect = document.getElementById('f-group');
+      grpSelect.innerHTML = MDM.dictionaries.groups.items.map(g => 
+        `<option value="${g.code}">${g.code} — ${g.name}</option>`
+      ).join('');
+
+      // 4. Populate ISO Materials
+      const matSelect = document.getElementById('f-material');
+      matSelect.innerHTML = MDM.dictionaries.materials.items.map(m => 
+        `<option value="${m.code}">${m.code} — ${m.name}</option>`
+      ).join('');
+
+      // 6. Populate Diameters
+      const diaSelect = document.getElementById('f-diameter');
+      diaSelect.innerHTML = MDM.dictionaries.diameters.items.map(d => 
+        `<option value="${d.code}" ${d.code === '10' ? 'selected' : ''}>${d.code} — ${d.name}</option>`
+      ).join('');
+
+      // 9. Populate Cut Lengths
+      const cutSelect = document.getElementById('f-cut-len');
+      cutSelect.innerHTML = MDM.dictionaries.cut_lengths.items.map(l => 
+        `<option value="${l.code}" ${l.code === '40' ? 'selected' : ''}>${l.code} — ${l.name}</option>`
+      ).join('');
+
+      // 10. Populate Total Lengths
+      const totSelect = document.getElementById('f-total-len');
+      totSelect.innerHTML = MDM.dictionaries.total_lengths.items.map(t => 
+        `<option value="${t.code}" ${t.code === 'A0' ? 'selected' : ''}>${t.code} — ${t.name}</option>`
+      ).join('');
+
+      // 20. Populate Manufacturers
+      const mfrSelect = document.getElementById('item-manufacturer');
+      mfrSelect.innerHTML = MDM.dictionaries.manufacturers.items.map(m => 
+        `<option value="${m.name}">${m.name} (${m.desc})</option>`
+      ).join('');
+
+      // Populate Subgroups & Types for initial group
+      onGroupChange();
+    }
+
+    function onGroupChange() {
+      const selectedGroup = document.getElementById('f-group').value;
+      const subSelect = document.getElementById('f-subgroup');
+
+      // Filter subgroups by group
+      const filteredSub = MDM.dictionaries.subgroups.items.filter(s => s.parent === selectedGroup);
+      subSelect.innerHTML = filteredSub.map(s => 
+        `<option value="${s.code}">${s.code} — ${s.name}</option>`
+      ).join('');
+
+      // Update dependent types
+      onSubgroupChange();
+      // Update contextual fields 5, 7, 8, 11, 15, 17 based on group
+      updateContextualFields(selectedGroup);
+    }
+
+    function onSubgroupChange() {
+      const selectedGroup = document.getElementById('f-group').value;
+      const selectedSub = document.getElementById('f-subgroup').value;
+      const typeSelect = document.getElementById('f-type');
+
+      const parentKey = `${selectedGroup}-${selectedSub}`;
+      const filteredTypes = MDM.dictionaries.types.items.filter(t => t.parent === parentKey);
+
+      if (filteredTypes.length > 0) {
+        typeSelect.innerHTML = filteredTypes.map(t => 
+          `<option value="${t.code}">${t.code} — ${t.name}</option>`
+        ).join('');
+      } else {
+        typeSelect.innerHTML = `<option value="01">01 — Стандартное исполнение</option>`;
+      }
+
+      updateLiveGenerator();
+    }
+
+    function onTypeChange() {
+      updateLiveGenerator();
+    }
+
+    function updateContextualFields(groupCode) {
+      const cfg = CONTEXT_OPTIONS[groupCode] || CONTEXT_OPTIONS["01"];
+
+      // Facet 5
+      document.getElementById('lbl-f5').textContent = cfg.f5.label;
+      document.getElementById('help-f5').textContent = cfg.f5.help;
+      document.getElementById('f-ctx-view').innerHTML = cfg.f5.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      // Facet 7
+      document.getElementById('lbl-f7').textContent = cfg.f7.label;
+      document.getElementById('help-f7').textContent = cfg.f7.help;
+      document.getElementById('f-teeth-pitch').innerHTML = cfg.f7.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      // Facet 8
+      document.getElementById('lbl-f8').textContent = cfg.f8.label;
+      document.getElementById('help-f8').textContent = cfg.f8.help;
+      document.getElementById('f-shank').innerHTML = cfg.f8.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      // Facet 11
+      document.getElementById('lbl-f11').textContent = cfg.f11.label;
+      document.getElementById('help-f11').textContent = cfg.f11.help;
+      document.getElementById('f-geom-angle').innerHTML = cfg.f11.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      // Facet 15
+      document.getElementById('lbl-f15').textContent = cfg.f15.label;
+      document.getElementById('help-f15').textContent = cfg.f15.help;
+      document.getElementById('f-tolerance').innerHTML = cfg.f15.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      // Facet 17
+      document.getElementById('lbl-f17').textContent = cfg.f17.label;
+      document.getElementById('help-f17').textContent = cfg.f17.help;
+      document.getElementById('f-execution').innerHTML = cfg.f17.items.map(i => 
+        `<option value="${i.code}">${i.name}</option>`
+      ).join('');
+
+      updateLiveGenerator();
+    }
+
+    function updateLiveGenerator() {
+      // Gather all 17 facets (strictly 2 chars each)
+      const f1 = document.getElementById('f-group').value || '01';
+      const f2 = document.getElementById('f-subgroup').value || '01';
+      const f3 = document.getElementById('f-type').value || '01';
+      const f4 = document.getElementById('f-material').value || 'P1';
+      const f5 = document.getElementById('f-ctx-view').value || '05';
+      const f6 = document.getElementById('f-diameter').value || '10';
+      const f7 = document.getElementById('f-teeth-pitch').value || '02';
+      const f8 = document.getElementById('f-shank').value || '01';
+      const f9 = document.getElementById('f-cut-len').value || '40';
+      const f10 = document.getElementById('f-total-len').value || 'A0';
+      const f11 = document.getElementById('f-geom-angle').value || '40';
+      const f12 = document.getElementById('f-direction').value || '01';
+      const f13 = document.getElementById('f-cnc').value || '01';
+      const f14 = document.getElementById('f-coolant').value || '01';
+      const f15 = document.getElementById('f-tolerance').value || 'M7';
+      const f16 = document.getElementById('f-coating').value || '02';
+      const f17 = document.getElementById('f-execution').value || '01';
+
+      const facets = [
+        { num: 1, val: f1, name: "Группа" },
+        { num: 2, val: f2, name: "Подгруппа" },
+        { num: 3, val: f3, name: "Вид" },
+        { num: 4, val: f4, name: "Материал" },
+        { num: 5, val: f5, name: "Контекст 5" },
+        { num: 6, val: f6, name: "Диаметр D" },
+        { num: 7, val: f7, name: "Зубья/Шаг" },
+        { num: 8, val: f8, name: "Хвостовик" },
+        { num: 9, val: f9, name: "Длина реза l" },
+        { num: 10, val: f10, name: "Длина общ. L" },
+        { num: 11, val: f11, name: "Геометрия" },
+        { num: 12, val: f12, name: "Направление" },
+        { num: 13, val: f13, name: "ЧПУ" },
+        { num: 14, val: f14, name: "СОЖ" },
+        { num: 15, val: f15, name: "Точность" },
+        { num: 16, val: f16, name: "Покрытие" },
+        { num: 17, val: f17, name: "Стружколом" }
+      ];
+
+      // Render 17 Facet Strip
+      const stripContainer = document.getElementById('facet-strip-container');
+      stripContainer.innerHTML = '';
+
+      facets.forEach((f, idx) => {
+        const chip = document.createElement('div');
+        chip.className = `facet-chip ${idx < 4 ? 'accent' : ''}`;
+        chip.innerHTML = `
+          <div class="fc-num">#${f.num}</div>
+          <div class="fc-val">${f.val}</div>
+          <div class="fc-lbl">${f.name}</div>
+        `;
+        stripContainer.appendChild(chip);
+
+        if (idx < facets.length - 1) {
+          const sep = document.createElement('span');
+          sep.className = 'facet-sep';
+          sep.textContent = '-';
+          stripContainer.appendChild(sep);
+        }
+      });
+
+      // Assemble Full 17-Facet String
+      const fullCode = facets.map(f => f.val).join('-');
+      document.getElementById('wizard-full-code').textContent = fullCode;
+
+      // Calculate 18. Auto Short Name
+      const autoShortName = computeShortName(f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13, f14, f15, f16, f17);
+      document.getElementById('item-short-name').value = autoShortName;
+      document.getElementById('wizard-short-name-preview').textContent = autoShortName;
+    }
+
+    function computeShortName(g, sg, tp, mat, f5, dia, f7, sh, cut, tot, geom, dir, cnc, cool, tol, coat, exec) {
+      // Find subgroup name
+      const subObj = MDM.dictionaries.subgroups.items.find(s => s.code === sg && s.parent === g);
+      const subName = subObj ? subObj.name : "Инструмент";
+
+      // Diameter
+      const diaObj = MDM.dictionaries.diameters.items.find(d => d.code === dia);
+      const diaStr = diaObj ? `Ø${diaObj.val.toFixed(1)}` : `Ø${dia}`;
+
+      // Total length decoded
+      const totObj = MDM.dictionaries.total_lengths.items.find(t => t.code === tot);
+      const totStr = totObj ? totObj.val : tot;
+
+      // Coolant suffix
+      let coolStr = cool === '01' ? 'IC' : (cool === '02' ? 'IC-RAD' : (cool === '03' ? 'MQL' : ''));
+
+      // Coating suffix
+      const coatMap = { "00": "Без покрытия", "01": "TiN", "02": "TiAlN", "03": "AlCrN", "04": "DLC", "05": "TiCN" };
+      const coatStr = coatMap[coat] || "";
+
+      // Group-specific short naming formulas
+      if (g === "01") {
+        // Drills: Сверло спиральное монолитное Ø10.0 L40/100 z=2 HA 140° m7 TiAlN IC (ISO P1)
+        const zNum = f7.replace(/^0+/, '');
+        const angleMap = { "18": "118°", "35": "135°", "40": "140°", "80": "180°" };
+        const angleStr = angleMap[geom] || "";
+        const shankMap = { "01": "HA", "02": "Weldon HB", "03": "HE", "04": "MK" };
+        const shankStr = shankMap[sh] || "";
+
+        return `${subName} ${diaStr} L${cut}/${totStr} z=${zNum} ${shankStr} ${angleStr} ${tol} ${coatStr} ${coolStr} (ISO ${mat})`.replace(/\s+/g, ' ').trim();
+
+      } else if (g === "02") {
+        // Taps: Метчик со спиральной канавкой М10х1.5 L25/100 DIN 371 6H TiCN (ISO M1)
+        const pitchMap = { "05": "0.5", "07": "0.7", "08": "0.8", "10": "1.0", "12": "1.25", "15": "1.5", "17": "1.75", "20": "2.0" };
+        const pitchVal = pitchMap[f7] || "1.0";
+        const diaNum = diaObj ? Math.round(diaObj.val) : parseInt(dia);
+        const threadName = `М${diaNum}х${pitchVal}`;
+        const stdMap = { "01": "DIN 371", "02": "DIN 376", "03": "ISO 529" };
+        const stdStr = stdMap[sh] || "";
+
+        return `${subName} ${threadName} L${cut}/${totStr} ${stdStr} форма ${geom} ${tol} ${coatStr} ${coolStr} (ISO ${mat})`.replace(/\s+/g, ' ').trim();
+
+      } else {
+        // Mills: Фреза концевая цилиндрическая Ø12.0 L32/75 z=4 Weldon 38° e8 AlCrN IC (ISO P1)
+        const zNum = f7.replace(/^0+/, '');
+        const helixMap = { "30": "30°", "38": "38°", "45": "45°", "50": "50°" };
+        const helixStr = helixMap[geom] || "";
+        const shankMap = { "01": "HA", "02": "Weldon HB", "03": "Насадная", "04": "HSK-A63" };
+        const shankStr = shankMap[sh] || "";
+
+        return `${subName} ${diaStr} L${cut}/${totStr} z=${zNum} ${shankStr} ${helixStr} ${tol} ${coatStr} ${coolStr} (ISO ${mat})`.replace(/\s+/g, ' ').trim();
+      }
+    }
+
+    function saveToolItemToRegistry() {
+      const code = document.getElementById('wizard-full-code').textContent.trim();
+      const shortName = document.getElementById('item-short-name').value.trim();
+      const catalogSku = document.getElementById('item-catalog-sku').value.trim();
+      const manufacturer = document.getElementById('item-manufacturer').value;
+
+      if (!catalogSku) {
+        showToast('Пожалуйста, укажите 19. Каталожное обозначение инструмента!', 'warning');
+        document.getElementById('item-catalog-sku').focus();
+        return;
+      }
+
+      // Check duplicate code
+      const duplicate = MDM.items.find(i => i.code === code);
+      if (duplicate) {
+        showToast(`Позиция с шифром 17 фасетов [${code}] уже зарегистрирована в реестре!`, 'warning');
+        return;
+      }
+
+      const g = document.getElementById('f-group').value;
+      const sg = document.getElementById('f-subgroup').value;
+      const tp = document.getElementById('f-type').value;
+      const mat = document.getElementById('f-material').value;
+      const dia = document.getElementById('f-diameter').value;
+      const cut = document.getElementById('f-cut-len').value;
+      const tot = document.getElementById('f-total-len').value;
+      const cool = document.getElementById('f-coolant').value;
+
+      const newItem = {
+        id: `MDM-REC-${String(MDM.items.length + 1).padStart(3, '0')}`,
+        code: code,
+        shortName: shortName,
+        catalogSku: catalogSku,
+        manufacturer: manufacturer,
+        group: g,
+        subgroup: sg,
+        type: tp,
+        material: mat,
+        specs: `Код ${code}, диаметр Ø${dia} мм, длина ${cut}/${tot} мм, СОЖ: ${cool}`,
+        timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16)
+      };
+
+      MDM.items.unshift(newItem);
+      showToast(`Позиция успешно классифицирована и внесена в Реестр НСИ!`, 'success');
+      switchView('catalog');
+    }
+
+    function resetWizardToDefaults() {
+      document.getElementById('f-group').value = '01';
+      onGroupChange();
+      document.getElementById('f-diameter').value = '10';
+      document.getElementById('f-cut-len').value = '40';
+      document.getElementById('f-total-len').value = 'A0';
+      document.getElementById('item-catalog-sku').value = '';
+      updateLiveGenerator();
+      showToast('Форма сброшена к типовым начальным значениям');
+    }
+
+    function renderCatalog(filteredItems = null) {
+      const items = filteredItems || MDM.items;
+      const tbody = document.getElementById('catalog-table-body');
+      tbody.innerHTML = '';
+
+      // Update summary badges
+      document.getElementById('badge-total-items').textContent = MDM.items.length;
+      document.getElementById('stat-total-tools').textContent = MDM.items.length;
+      document.getElementById('stat-drills-tools').textContent = MDM.items.filter(i => i.group === '01').length;
+      document.getElementById('stat-taps-tools').textContent = MDM.items.filter(i => i.group === '02').length;
+      document.getElementById('stat-mills-tools').textContent = MDM.items.filter(i => i.group === '03').length;
+
+      // Populate filter manufacturers if needed
+      const mfrFilter = document.getElementById('filter-manufacturer');
+      if (mfrFilter.options.length <= 1) {
+        MDM.dictionaries.manufacturers.items.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.name;
+          opt.textContent = m.name;
+          mfrFilter.appendChild(opt);
+        });
+      }
+
+      if (items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">
+              Позиций по заданным критериям не найдено
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <span class="code-pill">${item.code}</span>
+          </td>
+          <td>
+            <div style="font-weight: 800; color: var(--text-main); margin-bottom: 3px;">
+              ${item.shortName}
+            </div>
+            <div style="font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; color: #0284c7;">
+              Арт. производителя: <strong>${item.catalogSku}</strong>
+            </div>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: #1e3a8a; font-size: 0.82rem;">${item.manufacturer}</span>
+          </td>
+          <td>
+            <span class="iso-badge iso-${item.material}">${item.material}</span>
+          </td>
+          <td>
+            <span class="param-tag">${item.specs.split(',')[0]}</span>
+            <span class="param-tag">${item.specs.split(',')[1] || ''}</span>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn btn-outline btn-sm" onclick="inspectToolPassport('${item.id}')" title="Паспорт карточки">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              Паспорт
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function applyCatalogFilters() {
+      const searchVal = document.getElementById('catalog-search').value.toLowerCase().trim();
+      const groupVal = document.getElementById('filter-group').value;
+      const matVal = document.getElementById('filter-material').value;
+      const mfrVal = document.getElementById('filter-manufacturer').value;
+
+      const filtered = MDM.items.filter(item => {
+        const matchSearch = !searchVal || 
+          item.code.toLowerCase().includes(searchVal) ||
+          item.shortName.toLowerCase().includes(searchVal) ||
+          item.catalogSku.toLowerCase().includes(searchVal) ||
+          item.manufacturer.toLowerCase().includes(searchVal);
+
+        const matchGroup = !groupVal || item.group === groupVal;
+        const matchMat = !matVal || item.material === matVal;
+        const matchMfr = !mfrVal || item.manufacturer === mfrVal;
+
+        return matchSearch && matchGroup && matchMat && matchMfr;
+      });
+
+      renderCatalog(filtered);
+    }
+
+    function resetCatalogFilters() {
+      document.getElementById('catalog-search').value = '';
+      document.getElementById('filter-group').value = '';
+      document.getElementById('filter-material').value = '';
+      document.getElementById('filter-manufacturer').value = '';
+      renderCatalog();
+    }
+
+    function inspectToolPassport(itemId) {
+      const item = MDM.items.find(i => i.id === itemId);
+      if (!item) return;
+      MDM.activeInspectedItem = item;
+
+      document.getElementById('inspector-title').textContent = `Технологический паспорт позиции: ${item.id}`;
+      const body = document.getElementById('inspector-body');
+
+      // Split 17 facets
+      const fVals = item.code.split('-');
+      const facetNames = [
+        "1. Группа", "2. Подгруппа", "3. Вид", "4. Материал ISO", 
+        "5. Контекстный вид", "6. Диаметр D", "7. Зубья / Шаг", "8. Хвостовик", 
+        "9. Длина реза l", "10. Длина общ. L", "11. Геометрия / Угол", 
+        "12. Направление", "13. ЧПУ", "14. СОЖ", "15. Допуск", 
+        "16. Покрытие", "17. Стружколом"
+      ];
+
+      let facetsListHtml = fVals.map((v, i) => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 10px; background: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 0.8rem;">
+          <span style="color: var(--text-muted); font-weight: 600;">${facetNames[i]}:</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-weight: 800; color: #1e40af; background: #eff6ff; padding: 2px 8px; border-radius: 4px;">${v}</span>
+        </div>
+      `).join('');
+
+      body.innerHTML = `
+        <div style="margin-bottom: 20px;">
+          <span class="code-pill" style="font-size: 0.92rem; padding: 6px 12px;">${item.code}</span>
+          <h4 style="font-size: 1.15rem; font-weight: 800; margin-top: 12px; color: var(--text-main);">${item.shortName}</h4>
+          <div style="display: flex; gap: 16px; margin-top: 8px; font-size: 0.82rem; color: var(--text-muted);">
+            <span><strong>Каталожный номер:</strong> <code>${item.catalogSku}</code></span>
+            <span><strong>Производитель:</strong> ${item.manufacturer}</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-color); padding-top: 16px;">
+          <h5 style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;">
+            Структурная расшифровка 17 фасетов (по 2 знака каждый):
+          </h5>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            ${facetsListHtml}
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; padding: 12px 16px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: var(--radius-md); font-size: 0.8rem; color: #0369a1;">
+          <strong>Системная запись:</strong> Создана в реестре MDM ${item.timestamp}. Проверена валидатором длины (34 знака, 17 пар).
+        </div>
+      `;
+
+      openModal('modal-tool-inspector');
+    }
+
+    function copyInspectorJson() {
+      if (!MDM.activeInspectedItem) return;
+      copyTextToClipboard(JSON.stringify(MDM.activeInspectedItem, null, 2));
+      showToast('JSON паспорта инструмента скопирован в буфер');
+    }
+
+    function renderDictionariesTabs() {
+      const tabsWrap = document.getElementById('dict-tabs-list');
+      tabsWrap.innerHTML = Object.keys(MDM.dictionaries).map(key => {
+        const dict = MDM.dictionaries[key];
+        const isActive = key === MDM.selectedDictKey;
+        return `
+          <div class="dict-menu-item ${isActive ? 'active' : ''}" onclick="selectDictionary('${key}')">
+            <span>${dict.title}</span>
+            <span class="dict-count-tag">${dict.items.length}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectDictionary(dictKey) {
+      MDM.selectedDictKey = dictKey;
+      renderDictionariesTabs();
+      renderActiveDictionary();
+    }
+
+    function renderActiveDictionary() {
+      const dict = MDM.dictionaries[MDM.selectedDictKey];
+      if (!dict) return;
+
+      document.getElementById('dict-detail-title').textContent = dict.title;
+      document.getElementById('dict-detail-desc').textContent = dict.desc;
+
+      const tbody = document.getElementById('dict-elements-tbody');
+      tbody.innerHTML = '';
+
+      dict.items.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="code-pill">${item.code}</span></td>
+          <td style="font-weight: 700; color: var(--text-main);">${item.name}</td>
+          <td style="color: var(--text-muted); font-size: 0.82rem;">
+            ${item.desc || ''}
+            ${item.parent ? `<span class="param-tag" style="color: #2563eb; background: #eff6ff;">Родитель: ${item.parent}</span>` : ''}
+          </td>
+          <td style="text-align: right;">
+            <button class="btn btn-outline btn-sm" onclick="removeDictItem('${item.code}')" title="Удалить">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openAddDictElementModal() {
+      const dict = MDM.dictionaries[MDM.selectedDictKey];
+      document.getElementById('modal-dict-title').textContent = `Добавить в: ${dict.title}`;
+      
+      const parentWrap = document.getElementById('modal-parent-wrap');
+      if (MDM.selectedDictKey === 'subgroups') {
+        parentWrap.style.display = 'block';
+        const parentSel = document.getElementById('modal-item-parent');
+        parentSel.innerHTML = MDM.dictionaries.groups.items.map(g => 
+          `<option value="${g.code}">${g.code} — ${g.name}</option>`
+        ).join('');
+      } else {
+        parentWrap.style.display = 'none';
+      }
+
+      document.getElementById('form-dict-element').reset();
+      openModal('modal-add-dict');
+    }
+
+    function submitNewDictItem(e) {
+      e.preventDefault();
+      const code = document.getElementById('modal-item-code').value.trim().toUpperCase();
+      const name = document.getElementById('modal-item-name').value.trim();
+      const desc = document.getElementById('modal-item-desc').value.trim();
+
+      if (code.length !== 2) {
+        showToast('Код должен строго содержать 2 символа!', 'warning');
+        return;
+      }
+
+      const dict = MDM.dictionaries[MDM.selectedDictKey];
+      if (dict.items.some(i => i.code === code)) {
+        showToast(`Код "${code}" уже существует в данном справочнике!`, 'warning');
+        return;
+      }
+
+      const newItem = { code, name, desc };
+      if (MDM.selectedDictKey === 'subgroups') {
+        newItem.parent = document.getElementById('modal-item-parent').value;
+      }
+
+      dict.items.push(newItem);
+      closeModal('modal-add-dict');
+      renderDictionariesTabs();
+      renderActiveDictionary();
+      initializeWizardDropdowns();
+      showToast(`Запись [${code}] успешно занесена в справочник!`, 'success');
+    }
+
+    function removeDictItem(code) {
+      const dict = MDM.dictionaries[MDM.selectedDictKey];
+      if (dict.items.length <= 1) {
+        showToast('Нельзя удалить последнюю запись справочника', 'warning');
+        return;
+      }
+      dict.items = dict.items.filter(i => i.code !== code);
+      renderDictionariesTabs();
+      renderActiveDictionary();
+      initializeWizardDropdowns();
+      showToast(`Запись [${code}] удалена`);
+    }
+
+    function renderSpecificationMatrix() {
+      const tbody = document.getElementById('spec-matrix-tbody');
+      const matrix = [
+        { num: 1, len: "2 зн.", name: "Группа инструмента", dep: "Базовый справочник", d: "01 (Свёрла)", t: "02 (Метчики)", m: "03 (Фрезы)" },
+        { num: 2, len: "2 зн.", name: "Подгруппа инструмента", dep: "Зависит от #1 (Группы)", d: "01..03 (Монолитные, СМП, Центровочные)", t: "01..03 (Прямые, Спиральные, Раскатники)", m: "01..03 (Концевые, Сферические, Торцевые)" },
+        { num: 3, len: "2 зн.", name: "Вид инструмента", dep: "Зависит от #2 (Подгруппы)", d: "01..03 (Спиральное, Ступенчатое)", t: "01..02 (Сквозное, Глухое)", m: "01..03 (Плоский торец, Радиус, Черновая)" },
+        { num: 4, len: "2 зн.", name: "Обрабатываемый материал", dep: "ISO 513 Справочник", d: "P1, M1, K1, N1, S1, H1, U1", t: "P1, M1, K1, N1, S1, H1, U1", m: "P1, M1, K1, N1, S1, H1, U1" },
+        { num: 5, len: "2 зн.", name: "Контекстный вид / Назначение", dep: "Адаптивный (#1+#2+#3)", d: "Глубина сверления: 03 (3xD), 05 (5xD), 08 (8xD)", t: "Канавка: 01 (Прямая), 02 (15°), 03 (40°)", m: "Торец: 01 (90°), 02 (Фаска 45°), 03 (Сфера)" },
+        { num: 6, len: "2 зн.", name: "Рабочий диаметр D (мм)", dep: "Справочник диаметров", d: "02..32 (Ø 2.0 мм .. Ø 32.0 мм)", t: "02..32 (Резьба М2 .. М32)", m: "02..32 (Ø 2.0 мм .. Ø 32.0 мм)" },
+        { num: 7, len: "2 зн.", name: "Зубья / Шаг резьбы", dep: "Адаптивный (#1+#2+#3)", d: "Число перьев: 02 (z=2), 03 (z=3)", t: "Шаг P: 05 (0.5), 10 (1.0), 15 (1.5), 20 (2.0)", m: "Число зубьев: 01..06 (z=1..6)" },
+        { num: 8, len: "2 зн.", name: "Тип хвостовика / Посадка", dep: "Адаптивный (#1+#2+#3)", d: "01 (HA), 02 (Weldon HB), 03 (HE), 04 (MK)", t: "01 (DIN 371 с квадратом), 02 (DIN 376)", m: "01 (HA), 02 (Weldon HB), 03 (Насадная)" },
+        { num: 9, len: "2 зн.", name: "Длина режущей части l (мм)", dep: "Справочник длин l", d: "08, 12, 16, 20, 25, 32, 40, 50, 63, 80", t: "08, 12, 16, 20, 25, 32, 40, 50", m: "08, 12, 16, 20, 25, 32, 40, 50, 63, 80" },
+        { num: 10, len: "2 зн.", name: "Общая длина инструмента L", dep: "Справочник длин L", d: "45, 57, 75, A0 (100мм), A2, A5, B0", t: "45, 57, 75, A0 (100мм), A2, A5, B0", m: "45, 57, 75, A0 (100мм), A2, A5, B0" },
+        { num: 11, len: "2 зн.", name: "Режущая геометрия / Углы", dep: "Адаптивный (#1+#2+#3)", d: "Угол вершины: 18 (118°), 35 (135°), 40 (140°)", t: "Заходная часть: 0B (Форма B), 0C, 0E", m: "Угол спирали: 30 (30°), 38 (38°), 45 (45°)" },
+        { num: 12, len: "2 зн.", name: "Направление резания", dep: "Глобальный справочник", d: "01 (Правое RH), 02 (Левое LH)", t: "01 (Правое RH), 02 (Левое LH)", m: "01 (Правое RH), 02 (Левое LH)" },
+        { num: 13, len: "2 зн.", name: "Признак оборудования ЧПУ", dep: "Глобальный справочник", d: "01 (ЧПУ), 02 (Универсал), 03 (Автомат)", t: "01 (ЧПУ), 02 (Универсал), 03 (Автомат)", m: "01 (ЧПУ), 02 (Универсал), 03 (Автомат)" },
+        { num: 14, len: "2 зн.", name: "Признак подвода СОЖ", dep: "Глобальный справочник", d: "00 (Без СОЖ), 01 (Осевой), 03 (MQL)", t: "00 (Без СОЖ), 01 (Осевой), 03 (MQL)", m: "00 (Без СОЖ), 01 (Осевой), 02 (Радиальный)" },
+        { num: 15, len: "2 зн.", name: "Поле допуска / Точность", dep: "Адаптивный (#1+#2+#3)", d: "Квалитет: M7 (m7), H7 (h7), H8, H9", t: "Поле допуска: 6H, 6G, 2B, 7H", m: "Квалитет: E8 (e8), H9 (h9), H6 (h6)" },
+        { num: 16, len: "2 зн.", name: "Износостойкое покрытие", dep: "Глобальный справочник", d: "00 (Без), 01 (TiN), 02 (TiAlN), 03 (AlCrN)", t: "00 (Без), 01 (TiN), 02 (TiAlN), 05 (TiCN)", m: "00 (Без), 01 (TiN), 02 (TiAlN), 04 (DLC)" },
+        { num: 17, len: "2 зн.", name: "Исполнение / Стружколом", dep: "Адаптивный (#1+#2+#3)", d: "01 (Стандарт), 02 (Стружколом), 03 (Heavy)", t: "01 (Стандарт), 02 (Шахматный рельеф)", m: "01 (Гладкая кромка), 02 (Делитель), 03 (Кукуруза)" }
+      ];
+
+      tbody.innerHTML = matrix.map(row => `
+        <tr>
+          <td style="font-weight: 800; color: #1e40af;">#${row.num}</td>
+          <td><code>${row.len}</code></td>
+          <td style="font-weight: 700;">${row.name}</td>
+          <td><span class="param-tag">${row.dep}</span></td>
+          <td style="font-size: 0.8rem; color: #334155;">${row.d}</td>
+          <td style="font-size: 0.8rem; color: #334155;">${row.t}</td>
+          <td style="font-size: 0.8rem; color: #334155;">${row.m}</td>
+        </tr>
+      `).join('');
+    }
+
+    function copyGeneratedCode() {
+      const code = document.getElementById('wizard-full-code').textContent.trim();
+      copyTextToClipboard(code);
+      showToast(`Шифр MDM скопирован в буфер: ${code}`);
+    }
+
+    function copyTextToClipboard(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Copy fallback failed', err);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function exportDatabaseJSON() {
+      const exportData = {
+        system: "MDM-Tool-Manufacturing-System",
+        classifierSchema: "17-Facets-Fixed-Length",
+        exportedAt: new Date().toISOString(),
+        dictionaries: MDM.dictionaries,
+        items: MDM.items
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData, null, 2));
+      const a = document.createElement('a');
+      a.setAttribute("href", dataStr);
+      a.setAttribute("download", `MDM_Tool_Registry_${Date.now()}.json`);
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('Полная база НСИ успешно экспортирована в JSON');
+    }
+
+    function openModal(modalId) {
+      const m = document.getElementById(modalId);
+      if (m) m.classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      const m = document.getElementById(modalId);
+      if (m) m.classList.remove('active');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast-msg';
+
+      const icon = type === 'warning' ? '⚠️' : (type === 'success' ? '✅' : 'ℹ️');
+      toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'toastOut 0.25s forwards cubic-bezier(0.16, 1, 0.3, 1)';
+        setTimeout(() => toast.remove(), 250);
+      }, 3400);
+    }
+
+    // Initialize application on window load
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeWizardDropdowns();
+      renderCatalog();
+
+      // Click outside modal to close
+      document.querySelectorAll('.modal-overlay').forEach(el => {
+        el.addEventListener('click', (e) => {
+          if (e.target === el) closeModal(el.id);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
