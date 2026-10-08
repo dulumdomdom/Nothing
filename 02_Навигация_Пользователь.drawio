@@ -1,0 +1,164 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="nav-user" name="Навигация — Пользователь">
+    <mxGraphModel dx="1700" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Карта навигации: ПОЛЬЗОВАТЕЛЬ" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="450" y="20" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Базовый доступ: просмотр НСИ, создание заявок, обжалование, уведомления. Видны только разрешённые справочники и классификаторы." style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="300" y="65" width="1100" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- AUTH -->
+        <mxCell id="auth" value="01. Экран входа&#10;Логин / пароль • Внешняя авторизация LDAP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="110" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dash" value="02. Рабочий стол пользователя&#10;быстрые ссылки • счётчик новых уведомлений • мои активные заявки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="240" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- SECTION HEADERS -->
+        <mxCell id="sec_1" value="РАЗДЕЛ: Справочники" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_2" value="РАЗДЕЛ: Классификаторы" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="372" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_3" value="РАЗДЕЛ: Мои заявки" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="704" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_4" value="РАЗДЕЛ: Уведомления (почта)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_5" value="РАЗДЕЛ: Профиль" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1368" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 1: СПРАВОЧНИКИ -->
+        <mxCell id="u1_1" value="Список доступных справочников&#10;(сгруппированы по системам: 1С / АСУ / Imbase)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u1_2" value="Просмотр справочника&#10;таблица • иерархия • фильтры • сортировка&#10;(история изменений элемента — только чтение)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="620" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u1_3" value="Карточка элемента (просмотр)&#10;атрибуты • вложения BLOB • синонимы,&#10;аналоги, сертификаты, давальческие" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="760" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u1_4" value="Поиск элементов&#10;контекстный • неточный • по маске" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="900" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u1_5" value="Сопоставление элементов&#10;и сверка с внешними НСИ&#10;(Техэксперт, ФНС, Аршин, Кладар)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1040" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 2: КЛАССИФИКАТОРЫ -->
+        <mxCell id="u2_1" value="Список доступных классификаторов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="372" y="480" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u2_2" value="Просмотр классификатора&#10;структура фасетов • каталоги • узлы&#10;(режим «только чтение»)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="372" y="620" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u2_3" value="Расшифровка шифра&#10;выбор каталога + шифр&#10;→ результат: расшифровка фасетов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="372" y="760" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u2_4" value="Всероссийские классификаторы&#10;ОКПД • ОКВЭД и др. (справочный режим)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="372" y="900" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u2_note" value="Пользователю доступны только&#10;разрешённые справочники и&#10;классификаторы (ограничение по&#10;роли, строкам и столбцам)" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffff88;strokeColor=#36393d;size=18;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="372" y="1040" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 3: МОИ ЗАЯВКИ -->
+        <mxCell id="u3_1" value="Список моих заявок&#10;фильтр по статусу: черновик, на модерации,&#10;согласована, отклонена, обжалование" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="704" y="480" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u3_2" value="Создание заявки&#10;тип: добавление / изменение / удаление&#10;выбор справочника и элемента" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="704" y="620" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u3_3" value="Карточка заявки&#10;статус • маршрут • обходной лист&#10;(какие модераторы ещё не проклассифицировали)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="704" y="760" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u3_4" value="Обжалование заявки&#10;комментарий + повторное рассмотрение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="704" y="900" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u3_5" value="Отзыв / редактирование&#10;своей заявки до начала проверки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="704" y="1040" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 4: УВЕДОМЛЕНИЯ -->
+        <mxCell id="u4_1" value="Входящие уведомления&#10;непрочитанные • все • архив" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="480" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u4_2" value="Карточка уведомления&#10;текст • дата • статус заявки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="620" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u4_3" value="Переход к связанной заявке&#10;из уведомления одним кликом" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="760" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 5: ПРОФИЛЬ -->
+        <mxCell id="u5_1" value="Профиль пользователя&#10;ФИО • контакты • подразделение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1368" y="480" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u5_2" value="Смена пароля&#10;с учётом парольной политики&#10;(сложность, период, уникальность)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1368" y="620" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="u5_3" value="Выход из системы / смена сессии" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1368" y="760" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="ea" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="auth" target="dash">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="es1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="es2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="es3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="es4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="es5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ec1a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="sec_1" target="u1_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec1b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u1_1" target="u1_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec1c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u1_2" target="u1_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec1d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u1_3" target="u1_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec1e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u1_4" target="u1_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="ec2a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="sec_2" target="u2_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec2b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u2_1" target="u2_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec2c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u2_2" target="u2_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec2d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="u2_3" target="u2_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="ec3a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="sec_3" target="u3_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec3b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="u3_1" target="u3_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec3c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="u3_2" target="u3_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec3d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="u3_3" target="u3_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec3e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="u3_4" target="u3_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="ec4a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="sec_4" target="u4_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec4b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="u4_1" target="u4_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec4c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="u4_2" target="u4_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="ec5a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="sec_5" target="u5_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec5b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="u5_1" target="u5_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ec5c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="u5_2" target="u5_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="wf_note" value="Создание заявки запускает бизнес-процесс&#10;согласования и обходной лист классификации&#10;— подробно в файле «05_Workflow_Заявки»" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffe6cc;strokeColor=#d79b00;size=18;fontSize=11;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1036" y="900" width="300" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

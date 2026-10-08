@@ -1,0 +1,164 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="nav-adm" name="Навигация — Администратор">
+    <mxGraphModel dx="1700" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1320" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Карта навигации: АДМИНИСТРАТОР" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#6A1B9A;" vertex="1" parent="1">
+          <mxGeometry x="430" y="20" width="840" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Полный доступ: пользователи, роли, системы, процессы согласования, справочники и классификаторы, логи аудита, интеграции." style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="280" y="65" width="1140" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="auth" value="01. Экран входа администратора&#10;повышенные требования безопасности • LDAP / 2FA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="110" width="360" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dash" value="02. Рабочий стол администратора&#10;состояние систем • очередь эскалаций • журнал событий • быстрые настройки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="240" width="420" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- SECTION HEADERS -->
+        <mxCell id="sec_1" value="РАЗДЕЛ: Пользователи" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_2" value="РАЗДЕЛ: Роли и права" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="360" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_3" value="РАЗДЕЛ: Справочники и классификаторы" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="690" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_4" value="РАЗДЕЛ: Процессы и workflow" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="380" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_5" value="РАЗДЕЛ: Логи, системы, настройки" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="380" width="320" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 1 -->
+        <mxCell id="a1_1" value="Список пользователей&#10;поиск, фильтры, статусы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="470" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_2" value="Карточка пользователя&#10;логин • контакты • подразделение •&#10;срок действия аккаунта" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="610" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_3" value="Управление статусом&#10;активен • заблокирован • «удалён»&#10;полное удаление (если нет в логах)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="750" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_4" value="Пароли&#10;сброс пароля • смена своего&#10;хранение SHA512 + соль" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="890" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_5" value="Внешняя авторизация&#10;настройка LDAP • сопоставление&#10;учётных записей и ролей" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1030" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 2 -->
+        <mxCell id="a2_1" value="Список ролей&#10;Пользователь • Модератор • Администратор&#10;(+ расширяемые роли)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="470" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_2" value="Матрица прав&#10;операции над НСИ, заявками,&#10;администрированием" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="610" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_3" value="Уровни модерации и контуры&#10;закрепление справочников и&#10;классификаторов за модераторами" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="750" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_4" value="Тонкие права доступа&#10;на уровне строк и столбцов,&#10;по группам пользователей" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="890" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a2_5" value="Назначение ролей&#10;пользователю / группе,&#10;аудит назначений" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1030" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 3 -->
+        <mxCell id="a3_1" value="Все справочники&#10;полный доступ, независимо от системы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="470" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_2" value="Конфигурирование справочника&#10;атрибуты и типы • состояния • иерархия •&#10;BLOB-файлы • ссылочные типы" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="610" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_3" value="Все классификаторы&#10;полный доступ ко всем фасетным структурам" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="750" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_4" value="Конфигурирование классификатора&#10;фасеты • условия перехода • длины •&#10;обязательность • расшифровка" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="890" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a3_5" value="Сверка с внешними НСИ&#10;и управление сопоставлениями&#10;элементов справочников" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="690" y="1030" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 4 -->
+        <mxCell id="a4_1" value="Настройка процессов согласования&#10;создание и редактирование маршрутов заявок" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="470" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a4_2" value="Маршрут заявки&#10;порядок шагов • атрибуты шага •&#10;исполнители (модераторы)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="610" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a4_3" value="Правила обходного листа&#10;обязательные классификаторы для&#10;корректного отображения элемента" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="750" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a4_4" value="Эскалации и спорные заявки&#10;разрешение конфликтов,&#10;арбитраж обжалований" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="890" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a4_5" value="Шаблоны уведомлений&#10;внутренняя почта: тексты и события" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="1030" width="300" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 5 -->
+        <mxCell id="a5_1" value="Журнал действий пользователей&#10;(аудит): вход, операции, ошибки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="470" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a5_2" value="История изменений НСИ&#10;версии элементов • откат • экспорт" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="610" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a5_3" value="Интеграция&#10;протоколы • расписание (таймер) • события" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="750" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a5_4" value="Управление системами&#10;1С • АСУ • Imbase: подключение,&#10;точки обмена, статус синхронизации" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="890" width="320" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="a5_5" value="Системные настройки&#10;парольная политика • лицензии •&#10;резервное копирование" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1350" y="1030" width="320" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="ea" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="auth" target="dash"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c1a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="sec_1" target="a1_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a1_1" target="a1_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a1_2" target="a1_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a1_3" target="a1_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a1_4" target="a1_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c2a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="sec_2" target="a2_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a2_1" target="a2_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a2_2" target="a2_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a2_3" target="a2_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;" edge="1" parent="1" source="a2_4" target="a2_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c3a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="sec_3" target="a3_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="a3_1" target="a3_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="a3_2" target="a3_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="a3_3" target="a3_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="a3_4" target="a3_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c4a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="sec_4" target="a4_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="a4_1" target="a4_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="a4_2" target="a4_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="a4_3" target="a4_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="a4_4" target="a4_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c5a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="sec_5" target="a5_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c5b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="a5_1" target="a5_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c5c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="a5_2" target="a5_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c5d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="a5_3" target="a5_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c5e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="a5_4" target="a5_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

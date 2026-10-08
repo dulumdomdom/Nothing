@@ -1,0 +1,89 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="integration" name="Интеграция и протоколы">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Интеграция с системами и протоколы обмена" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="450" y="20" width="900" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Интеграционный слой обеспечивает двусторонний обмен НСИ между MDM и системами 1С, АСУ и Базой инструментов (Imbase)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="350" y="65" width="1100" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- SYSTEMS -->
+        <mxCell id="sys_1c" value="1С&#10;(ERP / УПП)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="sys_asu" value="АСУ&#10;(АСУ ТП / АСУП)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="350" width="280" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="sys_imb" value="База инструментов (Imbase)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="280" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- INTEGRATION LAYER -->
+        <mxCell id="bus_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3faf3;strokeColor=#82b366;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="190" width="960" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="bus_title" value="ИНТЕГРАЦИОННЫЙ СЛОЙ MDM" style="text;html=1;align=center;fontSize=16;fontStyle=1;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="420" y="198" width="920" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="REST API • SOAP API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="250" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="COM-объекты • T-SQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="250" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="1С-шина" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="250" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" value="RabbitMQ • Apache Kafka" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="250" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" value="XML • JSON • CSV • TXT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="330" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" value="Win API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="330" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" value="Маппинг • нормализация • версионирование НСИ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="330" width="460" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- CORE -->
+        <mxCell id="core" value="ЯДРО MDM&#10;справочники • классификаторы •&#10;заявки • обходной лист • уведомления" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#2F5597;strokeWidth=3;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="230" width="340" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- MODES -->
+        <mxCell id="modes" value="РЕЖИМЫ ИНТЕГРАЦИИ:&#10;• по таймеру (расписание обмена)&#10;• по событию (изменение НСИ, статус заявки, завершение обходного листа)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;align=left;spacingLeft=10;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="400" y="450" width="960" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- FLOWS -->
+        <mxCell id="flows" value="СОСТАВ ОБМЕНА&#10;• Справочники и классификаторы (эталонная НСИ) → в системы&#10;• Шифры и расшифровки → в системы&#10;• Заявки, статусы, результаты классификации ↔ между системами и MDM&#10;• Уведомления и обратная связь по обжалованиям" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef3fb;strokeColor=#6c8ebf;fontSize=13;align=left;spacingLeft=10;verticalAlign=top;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="400" y="560" width="960" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- EXTERNAL -->
+        <mxCell id="external" value="Внешние НСИ для сверки&#10;«Техэксперт» • реестр ФНС •&#10;ФГИС «Аршин» • Кладар" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="440" width="340" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- NOTE -->
+        <mxCell id="note" value="Двусторонний обмен: в ТЗ помечен как вопрос.&#10;Целевая модель — MDM является мастер-системой (source of truth),&#10;системы-потребители получают актуальную НСИ и публикуют заявки на изменение.&#10;Пароли и доступы к интеграциям хранятся в защищённом виде (SHA512 + соль)." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffff88;strokeColor=#36393d;size=18;fontSize=12;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="640" width="300" height="240" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="e1c" value="двусторонний обмен" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#6c8ebf;strokeWidth=3;dashed=1;fontSize=11;" edge="1" parent="1" source="sys_1c" target="bus_bg"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="easu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#6c8ebf;strokeWidth=3;dashed=1;" edge="1" parent="1" source="sys_asu" target="bus_bg"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eimb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#6c8ebf;strokeWidth=3;dashed=1;" edge="1" parent="1" source="sys_imb" target="bus_bg"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ebus" value="нормализованные данные" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#2E7D32;strokeWidth=3;fontSize=11;" edge="1" parent="1" source="bus_bg" target="core"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eext" value="сверка" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="core" target="external"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

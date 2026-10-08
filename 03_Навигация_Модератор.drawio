@@ -1,0 +1,138 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="nav-mod" name="Навигация — Модератор">
+    <mxGraphModel dx="1700" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1660" pageHeight="1320" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Карта навигации: МОДЕРАТОР" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#B26A00;" vertex="1" parent="1">
+          <mxGeometry x="430" y="20" width="800" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Работает только со «своим» контуром НСИ. Обрабатывает заявки и обходные листы, ведёт структуру справочников и классификаторов." style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="280" y="65" width="1100" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="auth" value="01. Экран входа&#10;Логин / пароль • LDAP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="110" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dash" value="02. Рабочий стол модератора&#10;очередь заявок • мои НСИ • новые уведомления • обжалования • назначенные уровни модерации" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="240" width="420" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- SECTION HEADERS -->
+        <mxCell id="sec_1" value="РАЗДЕЛ: Заявки и обходной лист" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="380" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_2" value="РАЗДЕЛ: Справочники (мой контур)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="420" y="380" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_3" value="РАЗДЕЛ: Классификаторы (мой контур)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="810" y="380" width="360" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sec_4" value="РАЗДЕЛ: Уведомления и профиль" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="380" width="430" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 1 -->
+        <mxCell id="m1_1" value="Очередь заявок по моим НСИ&#10;только справочники и классификаторы,&#10;закреплённые за модератором" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="470" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m1_2" value="Карточка заявки на рассмотрении&#10;данные элемента • вложения • автор • срок" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="610" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m1_3" value="Обходной лист — мой шаг&#10;назначить значение своего классификатора,&#10;присвоить/проверить шифр" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="750" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m1_4" value="Решение по заявке&#10;Согласовать • Отклонить (причина) •&#10;Вернуть на доработку автору" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="890" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m1_5" value="Обжалования по моим решениям&#10;повторное рассмотрение • эскалация&#10;администратору процесса" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="1030" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 2 -->
+        <mxCell id="m2_1" value="Мои справочники&#10;(ограничение: только закреплённые&#10;за системой/группой НСИ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="470" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m2_2" value="Просмотр и редактирование элементов&#10;добавление • изменение • удаление&#10;перенос между группами (иерархия)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="610" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m2_3" value="История изменений элемента&#10;3 типа истории (см. ТЗ, приложение №1)&#10;откат версии / просмотр версий" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="750" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m2_4" value="Структура справочника&#10;набор атрибутов и типы данных •&#10;список состояний • режим иерархии" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="890" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m2_5" value="Права доступа (в рамках своего контура)&#10;строки • столбцы • группы пользователей&#10;по согласованию с администратором" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1030" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 3 -->
+        <mxCell id="m3_1" value="Мои классификаторы&#10;(доступ только к закреплённым&#10;фасетным структурам)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="470" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m3_2" value="Структура шифра&#10;каталоги • ноды • фасеты&#10;дерево фасетов, длина и символы окончания" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="610" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m3_3" value="Условия перехода фасетов&#10;string / int / float / bool, диапазоны,&#10;массивы значений и диапазонов" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="750" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m3_4" value="Свойства фасетов и атрибутов&#10;обязательность • динамические свойства&#10;«С&lt;Имя свойства&gt;» • справочные ссылки" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="890" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m3_5" value="Тест шифрования / расшифровки&#10;проверка конфигурации классификатора,&#10;чтение шифра справа налево" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="810" y="1030" width="360" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- COLUMN 4 -->
+        <mxCell id="m4_1" value="Входящие уведомления по заявкам&#10;назначена заявка • требуется классификация •&#10;автор изменил заявку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="470" width="430" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m4_2" value="Внутренняя почта&#10;переписка по заявке с автором и другими&#10;модераторами обходного листа" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="610" width="430" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m4_3" value="Профиль модератора&#10;контакты • мои контуры НСИ • уровень модерации" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="750" width="430" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m4_4" value="Смена пароля" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="890" width="430" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="m4_note" value="Уровни модерации и контуры доступа:&#10;Модератор видит заявки только по тем справочникам&#10;и классификаторам, на которые у него есть права.&#10;Чем выше уровень — тем шире контур и права&#10;на структуру НСИ. Уровни назначает администратор." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffff88;strokeColor=#36393d;size=18;fontSize=12;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="1030" width="430" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="ea" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="auth" target="dash"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="dash" target="sec_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c1a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="sec_1" target="m1_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="m1_1" target="m1_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="m1_2" target="m1_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;" edge="1" parent="1" source="m1_3" target="m1_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c1e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="m1_4" target="m1_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c2a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="sec_2" target="m2_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m2_1" target="m2_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m2_2" target="m2_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m2_3" target="m2_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c2e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m2_4" target="m2_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c3a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="sec_3" target="m3_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m3_1" target="m3_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m3_2" target="m3_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m3_3" target="m3_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c3e" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="m3_4" target="m3_5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="c4a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="sec_4" target="m4_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;" edge="1" parent="1" source="m4_1" target="m4_2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="m4_2" target="m4_3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="c4d" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="m4_3" target="m4_4"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="cross1" value="обходной лист связывает несколько модераторов" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;dashed=1;fontSize=11;" edge="1" parent="1" source="m1_3" target="m3_1"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

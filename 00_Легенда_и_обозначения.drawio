@@ -1,0 +1,127 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="legend-01" name="Легенда">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Карта форм и навигации&#10;Легенда и условные обозначения" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Набор диаграмм описывает экранные формы (навигацию), бизнес-процесс заявок и классификации, интеграцию с системами 1С, АСУ и Базой инструментов (Imbase)" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="300" y="80" width="1000" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ROLE COLORS -->
+        <mxCell id="h_role" value="Цветовое кодирование ролей" style="text;html=1;align=left;fontSize=16;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="r_user" value="Пользователь&#10;(базовый доступ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r_mod" value="Модератор&#10;(свой контур НСИ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="290" y="180" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r_admin" value="Администратор&#10;(полный доступ)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="520" y="180" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="r_sys" value="Внешняя система&#10;(1С / АСУ / Imbase)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="750" y="180" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="r_core" value="Ядро MDM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;align=center;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="980" y="180" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- SHAPES -->
+        <mxCell id="h_shapes" value="Типы элементов" style="text;html=1;align=left;fontSize=16;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="60" y="290" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="s_screen" value="Экранная форма / страница" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="330" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s_section" value="Раздел / модуль системы" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="330" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s_process" value="Процесс / действие" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;shape=process;" vertex="1" parent="1">
+          <mxGeometry x="580" y="330" width="240" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s_dec" value="Шлюз / условие" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="320" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s_db" value="Хранилище НСИ&#10;(справочники/классификаторы)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="315" width="200" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s_start" value="Старт / вход" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="430" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s_end" value="Финал / выход" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="240" y="430" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="s_note" value="Примечание / ограничение доступа&#10;дополнительный контекст" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffff88;strokeColor=#36393d;size=18;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="420" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="s_ext" value="Внешняя НСИ / реестр&#10;(Техэксперт, ФНС, Аршин, Кладар)" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="415" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+        <mxCell id="h_edges" value="Типы связей" style="text;html=1;align=left;fontSize=16;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="60" y="540" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e_nav_t" value="Навигация" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="600" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_nav" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="610" as="sourcePoint" />
+            <mxPoint x="410" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_int_t" value="Интеграция / обмен данными" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="660" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_int" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=3;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="670" as="sourcePoint" />
+            <mxPoint x="410" y="670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_mail_t" value="Уведомление / внутренняя почта" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="720" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mail" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeColor=#d79b00;strokeWidth=2;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="730" as="sourcePoint" />
+            <mxPoint x="410" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_wf_t" value="Заявка / обходной лист" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="780" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_wf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="790" as="sourcePoint" />
+            <mxPoint x="410" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_conf_t" value="Согласование / отклонение" style="text;html=1;align=left;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="840" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="e_conf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="850" as="sourcePoint" />
+            <mxPoint x="410" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="legend_note" value="Каждая карта навигации построена сверху вниз:&#10;вход → разделы → экранные формы → действия.&#10;Серые/жёлтые блоки — пояснения, не являются экранами." style="text;html=1;align=left;verticalAlign=top;fontSize=12;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="900" y="560" width="420" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="files_note" value="Состав набора файлов:&#10;00 — Легенда&#10;01 — Общая архитектура и контекст&#10;02 — Навигация: Пользователь&#10;03 — Навигация: Модератор&#10;04 — Навигация: Администратор&#10;05 — Workflow заявки и обходной лист&#10;06 — Жизненный цикл заявки (статусы)&#10;07 — Структура классификаторов и справочников&#10;08 — Интеграция систем и протоколы" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#eef2ff;strokeColor=#6c8ebf;size=18;fontSize=12;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="670" width="420" height="230" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

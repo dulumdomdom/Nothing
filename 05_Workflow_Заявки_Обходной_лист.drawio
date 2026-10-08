@@ -1,0 +1,141 @@
+<mxfile host="app.diagrams.net" agent="opencode" version="24.7.17" type="device">
+  <diagram id="wf-req" name="Workflow заявки и обходной лист">
+    <mxGraphModel dx="2660" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2660" pageHeight="1250" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="MDM-система ММЗ — Workflow заявки и обходной лист классификации" style="text;html=1;align=center;verticalAlign=middle;fontSize=26;fontStyle=1;fontColor=#1F3864;" vertex="1" parent="1">
+          <mxGeometry x="700" y="20" width="1200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Элемент публикуется в справочнике только после того, как все модераторы обходного листа присвоят обязательные классификаторы" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#595959;" vertex="1" parent="1">
+          <mxGeometry x="600" y="65" width="1400" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- LANES -->
+        <mxCell id="lane1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3faf3;strokeColor=#b7d7b7;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="2560" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="lane1t" value="ПОЛЬЗОВАТЕЛЬ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontStyle=1;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="140" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3f6fb;strokeColor=#b9c9e6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="330" width="2560" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="lane2t" value="СИСТЕМА MDM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;fontStyle=1;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="330" width="140" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fdf7ee;strokeColor=#e6cfa9;" vertex="1" parent="1">
+          <mxGeometry x="40" y="590" width="2560" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="lane3t" value="МОДЕРАТОРЫ&#10;(обходной лист)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=15;fontStyle=1;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="590" width="140" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="lane4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f7f2fa;strokeColor=#d3c0e0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="990" width="2560" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="lane4t" value="АДМИНИСТРАТОР&#10;(эскалация)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=15;fontStyle=1;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="990" width="140" height="180" as="geometry" />
+        </mxCell>
+
+        <!-- USER NODES -->
+        <mxCell id="P1" value="Старт: потребность добавить/изменить/удалить элемент НСИ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;shape=process;" vertex="1" parent="1">
+          <mxGeometry x="200" y="175" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P2" value="Создание заявки&#10;выбор системы и справочника,&#10;заполнение атрибутов, вложения" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="175" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P3" value="Отправка заявки на модерацию" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;shape=process;" vertex="1" parent="1">
+          <mxGeometry x="760" y="175" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="U_app" value="Обжалование заявки&#10;уточнение данных,&#10;повторное рассмотрение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="175" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P4" value="Получение уведомления о результате (внутренняя почта)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="175" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- SYSTEM NODES -->
+        <mxCell id="S1" value="Приём заявки: проверка полей,&#10;регистрация, уведомление ответственных" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="380" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="S2" value="Определение справочника и набора&#10;обязательных классификаторов для&#10;корректного отображения элемента" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="380" width="240" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="S3" value="Формирование обходного листа&#10;пошаговый маршрут модераторов&#10;по их классификаторам" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="380" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="S_rem" value="Контроль сроков: напоминания и&#10;эскалация по таймеру" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="485" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S_happy" value="Публикация: создание/изменение&#10;элемента в справочнике,&#10;новая версия, применение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="380" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="S_notify" value="Уведомление автору и&#10;участникам маршрута" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="485" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- MODERATOR NODES -->
+        <mxCell id="D1" value="Нужна ли&#10;классификация?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="620" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="M1" value="Модератор уровня 1 — шаг обходного листа:&#10;присвоить значение классификатора «A»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="600" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="M2" value="Модератор уровня 2 — присвоить&#10;значение классификатора «B»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="690" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="M3" value="Модератор уровня N — присвоить&#10;значение классификатора «N»" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="780" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="R1" value="Решение модератора: отклонить заявку&#10;(с причиной) или вернуть на доработку" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1800" y="870" width="280" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="D2" value="Все шаги&#10;обходного листа&#10;выполнены?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2130" y="620" width="200" height="150" as="geometry" />
+        </mxCell>
+
+        <!-- ADMIN NODE -->
+        <mxCell id="A_esc" value="Администратор: арбитраж обжалования,&#10;разрешение спорных заявок, ручное решение" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="1030" width="340" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES MAIN -->
+        <mxCell id="epp1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="P1" target="P2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="epp2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#333333;strokeWidth=2;" edge="1" parent="1" source="P2" target="P3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ep3s1" value="заявка отправлена" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="P3" target="S1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es1s2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="S1" target="S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es2s3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;" edge="1" parent="1" source="S2" target="S3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es3d1" value="маршрут назначен" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="S3" target="D1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ed1no" value="НЕТ&#10;(классификация не требуется)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="D1" target="S_happy">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1640" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ed1yes" value="ДА" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="D1" target="M1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="em1m2" value="классификатор «A» присвоен" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="M1" target="M2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="em2m3" value="классификатор «B» присвоен" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="M2" target="M3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="em3d2" value="классификатор «N» присвоен" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="M3" target="D2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ed2no" value="НЕТ — ожидание остальных шагов" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1" source="D2" target="M2">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2100" y="725" /><mxPoint x="1740" y="725" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ed2yes" value="ДА — обходной лист завершён" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="D2" target="S_happy">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="2230" y="560" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="eshn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=2;" edge="1" parent="1" source="S_happy" target="S_notify"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="esnp4" value="уведомление" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="S_notify" target="P4"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- EDGES REJECTION / APPEAL -->
+        <mxCell id="er1u" value="уведомление об отклонении / возврате" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1" source="R1" target="U_app"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="euas2" value="повторное рассмотрение / уточнение" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;dashed=1;" edge="1" parent="1" source="U_app" target="S2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="er1a" value="эскалация спорной заявки" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="R1" target="A_esc"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="eaesh" value="ручное решение / публикация" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="A_esc" target="S_happy"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="es3rem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=2;dashed=1;" edge="1" parent="1" source="S3" target="S_rem"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="erema" value="просрочка по таймеру" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="S_rem" target="A_esc"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <!-- NOTE -->
+        <mxCell id="note1" value="Обходной лист — это накопительная ведомость классификации.&#10;Каждый модератор отвечает только за свой классификатор.&#10;Пока хотя бы один обязательный классификатор не присвоен —&#10;новый элемент не появляется в справочнике. Все переходы статусов&#10;сопровождаются уведомлениями во внутренней почте." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#ffff88;strokeColor=#36393d;size=18;fontSize=12;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="2160" y="1030" width="440" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
